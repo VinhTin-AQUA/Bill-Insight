@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:BillInsight.ViewModels"
+             xmlns:models="clr-namespace:BillInsight.Models.Sidebar"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BillInsight.Controls.Sidebar"
              x:DataType="vm:SidebarViewModel">
@@ -33,19 +34,17 @@
             <Border Grid.Row="0" Padding="0,10" >
                 <Grid ColumnDefinitions="*,Auto" >
 
-                    <!-- <TextBlock x:Name="SidebarLabel" Grid.Column="0" -->
-                    <!--            Text="Excel Labeler" -->
-                    <!--            VerticalAlignment="Center" -->
-                    <!--            HorizontalAlignment="Stretch" -->
-                    <!--            FontSize="14" -->
-                    <!--            Foreground="White" -->
-                    <!--            Padding="10,0,0,0" -->
-                    <!--            FontWeight="DemiBold" /> -->
-                    
-                    <Button x:Name="SidebarLabel"  Content="Hello"></Button>
+                    <TextBlock x:Name="SidebarLabel" Grid.Column="0"
+                               Text="Bill Insight"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Stretch"
+                               FontSize="14"
+                               Foreground="{StaticResource primary}"
+                               Padding="10,0,0,0"
+                               FontWeight="DemiBold" />
 
                     <Button Grid.Column="1" Click="Toggle_Sidebar_OnClick">
-                        <Svg Path="{StaticResource MenuIcon}" Css=".fill { fill: #fff; } " Width="24" Height="24" />
+                        <Svg Path="{StaticResource MenuIcon}" Css=".fill { fill: #fff; }" Width="24" Height="24" />
 
                         <Button.Styles>
                             <Style Selector="Button">
@@ -79,7 +78,7 @@
             </Border>
 
             <!-- List Menu -->
-            <!-- <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1">
                 <ItemsControl ItemsSource="{Binding Items}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -88,17 +87,19 @@
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Classes="button-sidebar" Margin="0,0,0,10" >
+                        <DataTemplate >
+                            <Button Classes="button-sidebar" 
+                                    Margin="0,0,0,10" 
+                                    Command="{Binding NavigateCommand}">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
-                                    <Svg Path="{Binding Icon}" Css=".fill { fill: #FF0000; }" Width="24" Height="24"/>
+                                    <Svg Path="{Binding Icon}" Css=".fill { fill: #166534; }" Width="24" Height="24"/>
                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Foreground="{StaticResource primary}" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel> -->
+            </StackPanel> 
 
             <StackPanel Grid.Row="2">
 

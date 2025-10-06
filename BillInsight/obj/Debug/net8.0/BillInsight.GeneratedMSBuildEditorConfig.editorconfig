@@ -31,7 +31,22 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/home/newtun/Desktop/BillInsight/BillInsight/Styles/Themes.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/newtun/Desktop/BillInsight/BillInsight/Views/AddInvoiceView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Views/InvoiceDetailsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Views/InvoiceImagesView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/newtun/Desktop/BillInsight/BillInsight/Views/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Views/SettingsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Views/SpreadSheetInfoView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [/home/newtun/Desktop/BillInsight/BillInsight/Views/StatisticalView.axaml]

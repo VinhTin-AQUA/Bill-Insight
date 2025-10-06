@@ -14,7 +14,6 @@
           "Avalonia.Fonts.Inter": "11.3.6",
           "Avalonia.ReactiveUI": "11.3.6",
           "Avalonia.Themes.Fluent": "11.3.6",
-          "ShadUI": "0.1.5",
           "Splat": "15.5.3",
           "Splat.Microsoft.Extensions.DependencyInjection": "17.1.1",
           "Svg.Controls.Skia.Avalonia": "11.3.6.2"
@@ -105,17 +104,6 @@
           "lib/net8.0/Avalonia.Controls.ColorPicker.dll": {
             "assemblyVersion": "11.3.6.0",
             "fileVersion": "11.3.6.0"
-          }
-        }
-      },
-      "Avalonia.Controls.DataGrid/11.3.3": {
-        "dependencies": {
-          "Avalonia": "11.3.6"
-        },
-        "runtime": {
-          "lib/net8.0/Avalonia.Controls.DataGrid.dll": {
-            "assemblyVersion": "11.3.3.0",
-            "fileVersion": "11.3.3.0"
           }
         }
       },
@@ -436,20 +424,6 @@
           }
         }
       },
-      "ShadUI/0.1.5": {
-        "dependencies": {
-          "Avalonia": "11.3.6",
-          "Avalonia.Controls.ColorPicker": "11.3.6",
-          "Avalonia.Controls.DataGrid": "11.3.3",
-          "Avalonia.Themes.Simple": "11.3.6"
-        },
-        "runtime": {
-          "lib/netstandard2.1/ShadUI.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.1.5.0"
-          }
-        }
-      },
       "ShimSkiaSharp/3.2.1": {
         "runtime": {
           "lib/net8.0/ShimSkiaSharp.dll": {
@@ -670,13 +644,6 @@
       "path": "avalonia.controls.colorpicker/11.3.6",
       "hashPath": "avalonia.controls.colorpicker.11.3.6.nupkg.sha512"
     },
-    "Avalonia.Controls.DataGrid/11.3.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ezMCta5SsfkxNMEzVOrh0vamnnjQ3QDBMCdT9vzytD+aL4mViXhCaRa1h+hNbmY/HL4c38KGAdoDITRl7OlcLg==",
-      "path": "avalonia.controls.datagrid/11.3.3",
-      "hashPath": "avalonia.controls.datagrid.11.3.3.nupkg.sha512"
-    },
     "Avalonia.Desktop/11.3.6": {
       "type": "package",
       "serviceable": true,
@@ -837,13 +804,6 @@
       "sha512": "sha512-9hNPknWjijnaSWs6auypoXqUptPZcRpUypF+cf1zD50fgW+SEoQda502N3fVZ2eWPcaiUad+z6GaLwOWmUVHNw==",
       "path": "reactiveui/20.1.1",
       "hashPath": "reactiveui.20.1.1.nupkg.sha512"
-    },
-    "ShadUI/0.1.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/45nStF9McqqLynWzqhMSNjCJEXJ2P5saXw4UtbOeagf4arXgtTI45oNFQVEi1h3nlFp7z9JZwwVz8RjjOtDGg==",
-      "path": "shadui/0.1.5",
-      "hashPath": "shadui.0.1.5.nupkg.sha512"
     },
     "ShimSkiaSharp/3.2.1": {
       "type": "package",

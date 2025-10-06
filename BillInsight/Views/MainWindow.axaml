@@ -19,7 +19,7 @@
     <Border>
         <Grid ColumnDefinitions="Auto,*">
             <controls:Sidebar Grid.Column="0" />
-            <!-- <ContentControl Grid.Column="1" Content="{Binding NavigationService.CurrentPage}" /> -->
+            <ContentControl Grid.Column="1" Content="{Binding NavigationService.CurrentPage}" />
         </Grid>
     </Border>
 

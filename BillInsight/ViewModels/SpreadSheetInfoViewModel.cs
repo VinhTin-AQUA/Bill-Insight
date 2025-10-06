@@ -1,6 +1,6 @@
 namespace BillInsight.ViewModels
 {
-    public class StatisticalViewModel : ViewModelBase
+    public class SpreadSheetInfoViewModel : ViewModelBase
     {
         public virtual void Dispose()
         {

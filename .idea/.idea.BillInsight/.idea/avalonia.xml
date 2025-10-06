@@ -8,8 +8,16 @@
         <entry key="BillInsight/Controls/Sidebar.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/Styles.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/SvgStyle.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/Themes.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/AddInvoice.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/AddInvoiceView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/BillDetailsView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/InvoiceDetailsView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/InvoiceImagesView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/MainWindow.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/SettingsView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/SpreadSheetInfoView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/StatisticalView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/StatisticalViewModel.axaml" value="BillInsight/BillInsight.csproj" />
       </map>

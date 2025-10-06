@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BillInsight")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5fa38dc4e568c11637b0008acafa5f56e813bf0f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cdce71596b80fcf42d15b91f53e7e97a6cf6b81f")]
 [assembly: System.Reflection.AssemblyProductAttribute("BillInsight")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BillInsight")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

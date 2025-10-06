@@ -17,7 +17,7 @@ namespace BillInsight.Controls
         {
             if (sidebarVisible)
             {
-                SidebarColumn.Width = 50;
+                SidebarColumn.Width = 55;
                 sidebarVisible = false;
                 SidebarLabel.IsVisible = false;
                 return;
@@ -27,6 +27,5 @@ namespace BillInsight.Controls
             sidebarVisible = true;
             SidebarLabel.IsVisible = true;
         }
-        
     }
 }

@@ -1,6 +1,5 @@
 /home/newtun/.nuget/packages/avalonia/11.3.6/ref/net8.0/Avalonia.Base.dll
 /home/newtun/.nuget/packages/avalonia.controls.colorpicker/11.3.6/lib/net8.0/Avalonia.Controls.ColorPicker.dll
-/home/newtun/.nuget/packages/avalonia.controls.datagrid/11.3.3/lib/net8.0/Avalonia.Controls.DataGrid.dll
 /home/newtun/.nuget/packages/avalonia/11.3.6/ref/net8.0/Avalonia.Controls.dll
 /home/newtun/.nuget/packages/avalonia/11.3.6/ref/net8.0/Avalonia.DesignerSupport.dll
 /home/newtun/.nuget/packages/avalonia.desktop/11.3.6/lib/net8.0/Avalonia.Desktop.dll
@@ -38,7 +37,6 @@
 /home/newtun/.dotnet/packs/Microsoft.NETCore.App.Ref/8.0.18/ref/net8.0/mscorlib.dll
 /home/newtun/.dotnet/packs/Microsoft.NETCore.App.Ref/8.0.18/ref/net8.0/netstandard.dll
 /home/newtun/.nuget/packages/reactiveui/20.1.1/lib/net8.0/ReactiveUI.dll
-/home/newtun/.nuget/packages/shadui/0.1.5/lib/netstandard2.1/ShadUI.dll
 /home/newtun/.nuget/packages/shimskiasharp/3.2.1/lib/net8.0/ShimSkiaSharp.dll
 /home/newtun/.nuget/packages/skiasharp/2.88.9/lib/net6.0/SkiaSharp.dll
 /home/newtun/.nuget/packages/splat.core/17.1.1/lib/net8.0/Splat.Core.dll
