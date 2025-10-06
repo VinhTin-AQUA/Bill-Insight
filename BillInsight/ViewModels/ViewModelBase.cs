@@ -1,7 +1,13 @@
-﻿using ReactiveUI;
+﻿using System;
+using ReactiveUI;
 
-namespace BillInsight.ViewModels;
-
-public class ViewModelBase : ReactiveObject
+namespace BillInsight.ViewModels
 {
+    public class ViewModelBase : ReactiveObject, IDisposable
+    {
+        public virtual void Dispose()
+        {
+            // override trong ViewModel con để giải phóng resource
+        }
+    }
 }

@@ -3,7 +3,15 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="BillInsight/App.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/Sidebar.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/Styles.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/Themes.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/MainWindow.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/StatisticalView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/StatisticalViewModel.axaml" value="BillInsight/BillInsight.csproj" />
       </map>
     </option>
   </component>

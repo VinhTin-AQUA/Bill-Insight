@@ -3,16 +3,24 @@
         xmlns:vm="using:BillInsight.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="using:BillInsight.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BillInsight.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
+        Background="White"
         Title="BillInsight">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Border>
+        <Grid ColumnDefinitions="Auto,*">
+            <controls:Sidebar Grid.Column="0" />
+            <!-- <ContentControl Grid.Column="1" Content="{Binding NavigationService.CurrentPage}" /> -->
+        </Grid>
+    </Border>
 
 </Window>

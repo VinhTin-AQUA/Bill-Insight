@@ -22,5 +22,17 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [/home/newtun/Desktop/BillInsight/BillInsight/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/home/newtun/Desktop/BillInsight/BillInsight/Controls/Sidebar.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Styles/SidebarButton.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Styles/Themes.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/home/newtun/Desktop/BillInsight/BillInsight/Views/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/home/newtun/Desktop/BillInsight/BillInsight/Views/StatisticalView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

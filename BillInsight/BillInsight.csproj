@@ -9,7 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Models\"/>
+        <Folder Include="Converters\" />
+        <Folder Include="Helpers\" />
         <AvaloniaResource Include="Assets\**"/>
     </ItemGroup>
 
@@ -24,5 +25,8 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.6"/>
+        <PackageReference Include="Splat" Version="15.5.3" />
+        <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="17.1.1" />
+        <PackageReference Include="Svg.Controls.Skia.Avalonia" Version="11.3.6.2" />
     </ItemGroup>
 </Project>

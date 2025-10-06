@@ -66,6 +66,18 @@
             "Avalonia.Themes.Fluent": {
               "target": "Package",
               "version": "[11.3.6, )"
+            },
+            "Splat": {
+              "target": "Package",
+              "version": "[15.5.3, )"
+            },
+            "Splat.Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[17.1.1, )"
+            },
+            "Svg.Controls.Skia.Avalonia": {
+              "target": "Package",
+              "version": "[11.3.6.2, )"
             }
           },
           "imports": [

@@ -11,5 +11,15 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://BillInsight/Styles/SidebarButton.axaml"/>
     </Application.Styles>
+             
+     <Application.Resources>
+         <ResourceDictionary>
+             <ResourceDictionary.MergedDictionaries>
+                 <ResourceInclude Source="avares://BillInsight/Styles/Themes.axaml"/>
+             </ResourceDictionary.MergedDictionaries>
+         </ResourceDictionary>
+     </Application.Resources>
+
 </Application>

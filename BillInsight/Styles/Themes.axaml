@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
+    <!-- 🎨 Màu sắc cơ bản -->
+    <Color x:Key="primary">#166534</Color>
+    <Color x:Key="green-50">#f0fdf4</Color>
+
+    
+    <!-- ✍Font -->
+    <!-- <FontFamily x:Key="AppFont">avares://MyApp/Assets/Fonts#Segoe UI</FontFamily> -->
+    <!-- <FontFamily x:Key="MonoFont">avares://MyApp/Assets/Fonts#Cascadia Code</FontFamily> -->
+
+    <!-- Kích thước mặc định -->
+    <!-- <x:Double x:Key="FontSizeSmall">12</x:Double> -->
+    <!-- <x:Double x:Key="FontSizeNormal">14</x:Double> -->
+    <!-- <x:Double x:Key="FontSizeLarge">18</x:Double> -->
+    <!-- <x:Double x:Key="CornerRadius">6</x:Double> -->
+    <!-- <x:Double x:Key="Spacing">8</x:Double> -->
+    
+    <!-- svg -->
+    <x:String x:Key="MenuIcon" >avares://BillInsight/Assets/SVGs/menu_icon.svg</x:String>
+</ResourceDictionary>
