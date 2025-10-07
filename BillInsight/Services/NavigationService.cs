@@ -13,9 +13,9 @@ namespace BillInsight.Services
         public const string SpreadSheetInfoView = "SpreadSheetInfoView";
         public const string SettingsView = "SettingsView";
         
-        private string currentPageName = string.Empty;
-        private ViewModelBase _currentPage;
+        private string currentRouteName = string.Empty;
         
+        private ViewModelBase _currentPage;
         public ViewModelBase CurrentPage
         {
             get => _currentPage;
@@ -36,11 +36,11 @@ namespace BillInsight.Services
 
         public void NavigateTo(string pageName)
         {
-            if (currentPageName == pageName)
+            if (currentRouteName == pageName)
             {
                 return;
             }
-            currentPageName =  pageName;
+            currentRouteName =  pageName;
             
             switch (pageName)
             {

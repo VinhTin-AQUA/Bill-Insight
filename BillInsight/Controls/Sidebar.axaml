@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:BillInsight.ViewModels"
              xmlns:models="clr-namespace:BillInsight.Models.Sidebar"
+             xmlns:controls="clr-namespace:BillInsight.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BillInsight.Controls.Sidebar"
              x:DataType="vm:SidebarViewModel">
@@ -79,26 +80,27 @@
 
             <!-- List Menu -->
             <StackPanel Grid.Row="1">
+                
+                <!-- <controls:SidebarButton Icon="avares://BillInsight/Assets/SVGs/excel.svg" -->
+                <!--                         Text="Details" -->
+                <!--                         Foreground="{StaticResource primary}" -->
+                <!--                         IsActive="{Binding CurrentRouteName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=StatisticalView}" -->
+                <!--                         ></controls:SidebarButton> -->
+                
                 <ItemsControl ItemsSource="{Binding Items}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate >
-                            <Button Classes="button-sidebar" 
-                                    Margin="0,0,0,10" 
-                                    Command="{Binding NavigateCommand}">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
-                                    <Svg Path="{Binding Icon}" Css=".fill { fill: #166534; }" Width="24" Height="24"/>
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Foreground="{StaticResource primary}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
+                        <DataTemplate>
+                            <controls:SidebarButton
+                                Icon="{Binding Icon}"
+                                Text="{Binding Name}"
+                                IsActive="{Binding IsActive}"
+                                Command="{Binding $parent[ItemsControl].((vm:SidebarViewModel)DataContext).NavigateCommand}"
+                                CommandParameter="{Binding}"
+                                />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                
             </StackPanel> 
 
             <StackPanel Grid.Row="2">

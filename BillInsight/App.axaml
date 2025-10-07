@@ -11,7 +11,6 @@
   
     <Application.Styles>
         <FluentTheme />
-        <StyleInclude Source="avares://BillInsight/Styles/SidebarButton.axaml"/>
     </Application.Styles>
              
      <Application.Resources>
@@ -21,5 +20,4 @@
              </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
      </Application.Resources>
-
 </Application>

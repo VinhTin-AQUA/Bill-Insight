@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:BillInsight.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BillInsight.Controls.SidebarButton">
+    
+    <UserControl.Styles>
+        <Style Selector="Button.button-sidebar">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+    
+        <!-- hover -->
+        <Style Selector="Button.button-sidebar:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#bbf7d0"/>
+        </Style>
+        
+        <!-- press -->
+        <Style Selector="Button.button-sidebar:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="#4ade80"/>
+        </Style>
+        
+        <Style Selector="Button.button-sidebar /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="FontSize" Duration="0:0:0.1" />
+                    <BrushTransition Property="Background" Duration="0:0:0.1" />
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <!-- Khi IsActive = true, đổi background thành đen -->
+        <!-- Khi active -->
+        <Style Selector="local|SidebarButton[IsActive=True] > Button.button-sidebar">
+            <Setter Property="Background" Value="#bbf7d0"/> <!-- Màu active -->
+        </Style>
+    </UserControl.Styles>
+    
+    <Button Classes="button-sidebar" 
+            Margin="0,0,0,10" 
+            x:Name="ButtonSidebar"
+    >
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  Spacing="8">
+            <Svg Path="{Binding Icon, RelativeSource={RelativeSource AncestorType=local:SidebarButton}}" 
+                 Css=".fill { fill: #166534; }" 
+                 Width="24" 
+                 Height="24"/> 
+            <TextBlock Text="{Binding Text, RelativeSource={RelativeSource AncestorType=local:SidebarButton}}"
+                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=local:SidebarButton}}"
+                       LineHeight="24"
+                       />
+        </StackPanel>
+    </Button>
+</UserControl>
