@@ -5,6 +5,7 @@
       <map>
         <entry key="BillInsight/App.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/InvoiceDetailsItem.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Sidebar.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />

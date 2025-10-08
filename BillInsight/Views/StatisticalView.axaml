@@ -4,5 +4,71 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BillInsight.Views.StatisticalView">
-    <TextBlock Foreground="Black" Text="StatisticalView" />
+    <ScrollViewer Padding="20">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="20" RowSpacing="20">
+            <!-- Hàng 1 -->
+            <Border Grid.Row="0" Grid.Column="0" 
+                    BoxShadow="0 2 8 #33000000"
+                    Background="{StaticResource red-300}" 
+                    CornerRadius="12" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Tổng tiền mặt đã dùng" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="12.500.000 ₫" FontSize="24" FontWeight="Bold" Foreground="{StaticResource red-800}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="0" Grid.Column="1" 
+                    Background="{StaticResource blue-300}" 
+                    BoxShadow="0 2 8 #33000000"
+                    CornerRadius="12" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Tổng tiền ngân hàng đã dùng" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="8.200.000 ₫" FontSize="24" FontWeight="Bold" Foreground="{StaticResource blue-800}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Hàng 2 -->
+            <Border Grid.Row="1" Grid.Column="0" 
+                    BoxShadow="0 2 8 #33000000"
+                    Background="{StaticResource orange-300}" 
+                    CornerRadius="12" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Tổng tiền mặt mỗi tháng" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="3.000.000 ₫" FontSize="24" FontWeight="Bold" Foreground="{StaticResource orange-800}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="1" 
+                    Background="{StaticResource green-300}" 
+                    BoxShadow="0 2 8 #33000000"
+                    CornerRadius="12" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Tổng tiền ngân hàng mỗi tháng" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="5.000.000 ₫" FontSize="24" FontWeight="Bold" Foreground="{StaticResource green-800}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Hàng 3 -->
+            <Border Grid.Row="2" Grid.Column="0" 
+                    Background="{StaticResource yellow-300}" 
+                    BoxShadow="0 2 8 #33000000"
+                    CornerRadius="12" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Tiền mặt còn lại" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="2.500.000 ₫" FontSize="24" FontWeight="Bold" Foreground="{StaticResource yellow-800}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="2" Grid.Column="1" 
+                    Background="{StaticResource indigo-300}" 
+                    BoxShadow="0 2 8 #33000000"
+                    CornerRadius="12" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Tổng tiền còn lại" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="7.500.000 ₫" FontSize="24" FontWeight="Bold" Foreground="{StaticResource indigo-800}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+
 </UserControl>

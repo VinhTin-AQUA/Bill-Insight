@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:local="using:BillInsight.Controls"
+             xmlns:model="using:BillInsight.Models.Products"
+             x:Class="BillInsight.Controls.InvoiceDetailsItem">
+    <Border
+        CornerRadius="8"
+        BorderThickness="1"
+        BorderBrush="#DDDDDD"
+        Background="#FFFFFF"
+        Padding="12"
+        Margin="8"
+        BoxShadow="0 2 8 #33000000">
+
+        <Grid RowDefinitions="Auto,Auto" RowSpacing="8">
+            <!-- Ngày mua -->
+            <TextBlock Grid.Row="0"
+                       Text="{Binding DatePurchased, StringFormat='{}{0:dd/MM/yyyy}', RelativeSource={RelativeSource AncestorType=local:InvoiceDetailsItem}}"
+                       FontWeight="SemiBold"
+                       FontSize="14"
+                       Foreground="#333333"
+                       HorizontalAlignment="Left" />
+
+            <!-- Danh sách sản phẩm -->
+            <ItemsControl Grid.Row="1"
+                          ItemsSource="{Binding Products, RelativeSource={RelativeSource AncestorType=local:InvoiceDetailsItem}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Spacing="4" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="model:ProductModel">
+                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
+                            <TextBlock Text="{Binding Name}"
+                                       Foreground="#222222"
+                                       FontSize="13"
+                                       VerticalAlignment="Center" />
+
+                            <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}"
+                                       Grid.Column="1"
+                                       Foreground="#444444"
+                                       FontSize="13"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
+
+                            <TextBlock Text="{Binding PaymentMethod}"
+                                       Grid.Column="2"
+                                       Foreground="#666666"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+
+</UserControl>

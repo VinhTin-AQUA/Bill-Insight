@@ -2,7 +2,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:BillInsight.ViewModels"
+             xmlns:controls="using:BillInsight.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:InvoiceDetailsViewModel"
              x:Class="BillInsight.Views.InvoiceDetailsView">
-    <TextBlock Foreground="Black" Text="BillDetailsView" />
+    
+    <UserControl.DataContext>
+        <vm:InvoiceDetailsViewModel/>
+    </UserControl.DataContext>
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        
+        <ItemsControl ItemsSource="{Binding Products}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                   <controls:InvoiceDetailsItem DatePurchased="{Binding DatePurchased}" Products="{Binding Products}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      
+    </ScrollViewer>
 </UserControl>

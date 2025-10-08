@@ -4,9 +4,28 @@
     
     <!-- 🎨 Màu sắc cơ bản -->
     <Color x:Key="primary">#166534</Color>
+    
     <Color x:Key="green-50">#f0fdf4</Color>
+    <Color x:Key="green-300">#86efac</Color>
     <Color x:Key="green-400">#4ade80</Color>
-
+    <Color x:Key="green-800">#166534</Color>
+    
+    <Color x:Key="red-300">#fca5a5</Color>
+    <Color x:Key="red-800">#991b1b</Color>
+    
+    <Color x:Key="blue-300">#93c5fd</Color>
+    <Color x:Key="blue-800">#1e40af</Color>
+    
+    <Color x:Key="orange-300">#fdba74</Color>
+    <Color x:Key="orange-800">#9a3412</Color>
+    
+    <Color x:Key="yellow-300">#fcd34d</Color>
+    <Color x:Key="yellow-800">#92400e</Color>
+    
+    <Color x:Key="indigo-300">#a5b4fc</Color>
+    <Color x:Key="indigo-800">#3730a3</Color>
+    
+    
     <!-- ✍Font -->
     <!-- <FontFamily x:Key="AppFont">avares://MyApp/Assets/Fonts#Segoe UI</FontFamily> -->
     <!-- <FontFamily x:Key="MonoFont">avares://MyApp/Assets/Fonts#Cascadia Code</FontFamily> -->

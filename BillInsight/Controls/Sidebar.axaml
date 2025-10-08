@@ -81,12 +81,6 @@
             <!-- List Menu -->
             <StackPanel Grid.Row="1">
                 
-                <!-- <controls:SidebarButton Icon="avares://BillInsight/Assets/SVGs/excel.svg" -->
-                <!--                         Text="Details" -->
-                <!--                         Foreground="{StaticResource primary}" -->
-                <!--                         IsActive="{Binding CurrentRouteName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=StatisticalView}" -->
-                <!--                         ></controls:SidebarButton> -->
-                
                 <ItemsControl ItemsSource="{Binding Items}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

@@ -87,7 +87,6 @@ namespace BillInsight.Controls
         
         private void OnButtonClick(object? sender, RoutedEventArgs e)
         {
-            Console.WriteLine(IsActive);
             if (Command?.CanExecute(CommandParameter) == true)
                 Command.Execute(CommandParameter);
         }
