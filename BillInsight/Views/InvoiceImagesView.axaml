@@ -2,7 +2,102 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:BillInsight.ViewModels"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BillInsight.Views.InvoiceImagesView">
-    <TextBlock Foreground="Black" Text="InvoiceImagesView" />
+             x:Class="BillInsight.Views.InvoiceImagesView"
+             x:DataType="vm:InvoiceImagesViewModel">
+    
+    <UserControl.DataContext>
+        <vm:InvoiceImagesViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Styles>
+       
+    </UserControl.Styles>
+    
+   <Grid>
+        <!-- Gallery -->
+        <ScrollViewer Padding="20" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding ImagePaths}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" LineSpacing="16" ItemSpacing="16"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+                                CornerRadius="12"
+                                Padding="8"
+                                Margin="4"
+                                Width="200"
+                                Effect="drop-shadow(0 2 6 #00000025)">
+                            <StackPanel HorizontalAlignment="Center" Spacing="8">
+                                <Button Command="{Binding $parent[ItemsControl].((vm:InvoiceImagesViewModel)DataContext).ShowDetailCommand}"
+                                        CommandParameter="{Binding}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Padding="0">
+                                    <Grid Width="180" Height="180" ClipToBounds="True">
+                                        <Viewbox Stretch="Uniform">
+                                            <Image asyncImageLoader:ImageLoader.Source="{Binding Url}"
+                                                   Stretch="Uniform"
+                                                   MaxWidth="180"
+                                                   MaxHeight="180"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                        </Viewbox>
+                                    </Grid>
+                                </Button>
+
+                                <TextBlock Text="{Binding FileName}"
+                                           FontSize="14"
+                                           FontWeight="SemiBold"
+                                           Foreground="#333"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           MaxWidth="180"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Overlay hiển thị chi tiết -->
+        <Border Background="#80000000"
+                IsVisible="{Binding IsDetailVisible}"
+                ZIndex="10"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+                <Border Background="White"
+                        CornerRadius="12"
+                        Padding="12"
+                        Width="700"
+                        Effect="drop-shadow(0 4 12 #00000040)">
+                    <StackPanel Spacing="12">
+                        <Image asyncImageLoader:ImageLoader.Source="{Binding SelectedImage.Url}"
+                               Stretch="Uniform"
+                               MaxWidth="700"
+                               MaxHeight="600"/>
+                        <TextBlock Text="{Binding SelectedImage.FileName}"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#333"
+                                   TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Button Content="Close"
+                        Width="100"
+                        HorizontalAlignment="Center"
+                        Background="{StaticResource red-800}"
+                        Command="{Binding CloseDetailCommand}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>

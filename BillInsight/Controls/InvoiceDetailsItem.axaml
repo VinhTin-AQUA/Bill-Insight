@@ -20,7 +20,7 @@
             <TextBlock Grid.Row="0"
                        Text="{Binding DatePurchased, StringFormat='{}{0:dd/MM/yyyy}', RelativeSource={RelativeSource AncestorType=local:InvoiceDetailsItem}}"
                        FontWeight="SemiBold"
-                       FontSize="14"
+                       FontSize="20"
                        Foreground="#333333"
                        HorizontalAlignment="Left" />
 
@@ -38,20 +38,20 @@
                         <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
                             <TextBlock Text="{Binding Name}"
                                        Foreground="#222222"
-                                       FontSize="13"
+                                       FontSize="20"
                                        VerticalAlignment="Center" />
 
                             <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}"
                                        Grid.Column="1"
                                        Foreground="#444444"
-                                       FontSize="13"
+                                       FontSize="20"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center" />
 
                             <TextBlock Text="{Binding PaymentMethod}"
                                        Grid.Column="2"
                                        Foreground="#666666"
-                                       FontSize="12"
+                                       FontSize="16"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" />
                         </Grid>
