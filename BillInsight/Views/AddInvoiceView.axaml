@@ -3,6 +3,109 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:BillInsight.ViewModels"
+             x:DataType="vm:AddInvoiceViewModel"
              x:Class="BillInsight.Views.AddInvoiceView">
-    <TextBlock Foreground="Black" Text="AddInvoiceView"/>
+    
+    
+    <UserControl.DataContext>
+        <vm:AddInvoiceViewModel/>
+    </UserControl.DataContext>
+    
+    <ScrollViewer>
+        <Grid ColumnDefinitions="3*,2*">
+            <StackPanel Grid.Column="0" Margin="20" Spacing="16">
+
+                <!-- ========== NBan Section ========== -->
+                <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="---- NBan ----" FontSize="20" FontWeight="Bold" Foreground="#006400" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="CÔNG TY CỔ PHẦN THƯƠNG MẠI BÁCH HÓA XANH" FontWeight="Bold" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="MST: 0310471746" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Địa chỉ: 128 Trần Quang Khải, Phường Tân Định, Thành Phố Hồ Chí Minh, Việt Nam." />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="ĐT: 19001908" />
+                        
+                        <Separator Margin="4"/>
+                        <TextBlock Foreground="Black" Text="TTKhac:" FontWeight="Bold"/>
+                        <StackPanel Spacing="2">
+                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="loaiHD = HDonGTKT"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="nguoiBan = 225176 - Thái Thị Ngọc Vân"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="TDVi = CÔNG TY CỔ PHẦN THƯƠNG MẠI BÁCH HÓA XANH"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="diaChiCN = 26 Nguyễn Thượng Hiền, Phường Hạnh Thông, Thành phố Hồ Chí Minh, Việt Nam"/>
+                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="TenCN = ĐỊA ĐIỂM KINH DOANH CÔNG TY CỔ PHẦN THƯƠNG MẠI BÁCH HÓA XANH - CỬA HÀNG BÁCH HÓA XANH SỐ 101"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ========== HHDVu Section ========== -->
+                <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
+                    <StackPanel>
+                        <DockPanel>
+                            <Button   DockPanel.Dock="Right" 
+                                      Content="Add"
+                                      Background="#E57373"
+                                      Foreground="White"
+                                      Padding="6,2"
+                                      Margin="10,0,0,0"
+                            ></Button>
+                            <TextBlock VerticalAlignment="Center" Text="---- HHDVu ----" FontSize="20" FontWeight="Bold" Foreground="#00008B" Margin="0,0,0,8"/>
+                        </DockPanel>  
+            
+                        <StackPanel Margin="10" Spacing="8">
+
+                            <!-- Header -->
+                            <Grid ColumnDefinitions="*,150,50" Margin="0,0,0,8">
+                                <TextBlock Foreground="Black" Text="Tên sản phẩm" FontWeight="Bold" Grid.Column="0"/>
+                                <TextBlock Foreground="Black" Text="Giá (VNĐ)" FontWeight="Bold" Grid.Column="1" Margin="10,0,0,0"/>
+                                <TextBlock Foreground="Black" Text="" FontWeight="Bold" Grid.Column="2" Margin="10,0,0,0"/>
+                            </Grid>
+
+                            <!-- Danh sách sản phẩm -->
+                            <ItemsControl ItemsSource="{Binding Products}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="*,150,50" Margin="0,4,0,4">
+                                            <!-- Tên sản phẩm -->
+                                            <TextBox Text="{Binding Name, Mode=TwoWay}" Grid.Column="0"/>
+
+                                            <!-- Giá -->
+                                            <TextBox Text="{Binding Price, Mode=TwoWay}" Grid.Column="1" Margin="10,0,0,0"  HorizontalAlignment="Stretch"/>
+
+                                            <!-- Nút Xóa -->
+                                            <Button Content="Xóa"
+                                                    Background="#E57373"
+                                                    Foreground="White"
+                                                    Padding="6,2"
+                                                    Margin="10,0,0,0"
+                                                    HorizontalAlignment="Stretch"
+                                                    Grid.Column="2"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ========== TToan Section ========== -->
+                <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="---- TToan ----" FontSize="20" FontWeight="Bold" Foreground="#8B0000"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Thuế suất: 5%, Tiền: 22606, Thuế: 1130"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Thuế suất: 8%, Tiền: 39537, Thuế: 3163"/>
+                        <Separator Margin="4"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tổng cộng chưa thuế: 62143" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tiền thuế: 4293"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tổng thanh toán (số): 66436" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tổng thanh toán (chữ): Sáu mươi sáu nghìn bốn trăm ba mươi sáu đồng chẵn" FontStyle="Italic"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                <Button Content="Chọn ảnh..." Click="OnChooseImageClick"/>
+                <Image x:Name="PreviewImage" Width="300" Height="300" Stretch="Uniform"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
