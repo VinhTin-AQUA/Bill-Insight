@@ -43,13 +43,16 @@
                 <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
                     <StackPanel>
                         <DockPanel>
-                            <Button   DockPanel.Dock="Right" 
-                                      Content="Add"
-                                      Background="#E57373"
-                                      Foreground="White"
-                                      Padding="6,2"
-                                      Margin="10,0,0,0"
-                            ></Button>
+                            <Button DockPanel.Dock="Right" 
+                                    Classes="add-button"
+                                    Padding="6,2"
+                                    Margin="10,0,0,0"
+                                    Command="{Binding AddProductCommand}"
+                            >
+                                <Svg  Path="{StaticResource AddLine}" Css=".fill { fill: #fff; } "
+                                      Width="24" 
+                                      Height="24" ></Svg>
+                            </Button>
                             <TextBlock VerticalAlignment="Center" Text="---- HHDVu ----" FontSize="20" FontWeight="Bold" Foreground="#00008B" Margin="0,0,0,8"/>
                         </DockPanel>  
             
@@ -74,17 +77,34 @@
                                             <TextBox Text="{Binding Price, Mode=TwoWay}" Grid.Column="1" Margin="10,0,0,0"  HorizontalAlignment="Stretch"/>
 
                                             <!-- Nút Xóa -->
-                                            <Button Content="Xóa"
-                                                    Background="#E57373"
-                                                    Foreground="White"
-                                                    Padding="6,2"
+                                            <Button Classes="remove-button"
                                                     Margin="10,0,0,0"
-                                                    HorizontalAlignment="Stretch"
-                                                    Grid.Column="2"/>
+                                                    Grid.Column="2"
+                                                    Command="{Binding $parent[ItemsControl].((vm:AddInvoiceViewModel)DataContext).RemoveProductCommand}"
+                                                    CommandParameter="{Binding Id}"
+                                                    >
+                                                <Svg  Path="{StaticResource XCircleIcon}" Css=".fill { fill: #fff; } "
+                                                     Width="24" 
+                                                     Height="24" ></Svg>
+                                            </Button>
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
+                            
+                            <StackPanel>
+                                <TextBlock Text="Nhập Captcha"
+                                           FontSize="16"
+                                           Foreground="#333" />
+                                <TextBox />
+                                
+                                <Button Classes="remove-button" Background="#166534" 
+                                        Margin="0,10,0,0">
+                                    <Svg Path="{StaticResource Save}" Css=".fill { fill: #4ade80; } "
+                                          Width="24" 
+                                          Height="24" ></Svg>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -106,74 +126,109 @@
                 
         </ScrollViewer>
         
-        <StackPanel Grid.Column="1"
-            Width="400"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Spacing="15">
+        <ScrollViewer Grid.Column="1">
+            <StackPanel
+                Width="400"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="15">
 
-            <!-- Thẻ chứa toàn bộ khung -->
-            <Border Background="#FFF"
-                    CornerRadius="12"
-                    BoxShadow="0 4 12 #00000030"
-                    Padding="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                <StackPanel Spacing="15" HorizontalAlignment="Center">
+                <!-- Thẻ chứa toàn bộ khung -->
+                <Border Background="#FFF"
+                        CornerRadius="12"
+                        BoxShadow="0 4 12 #00000030"
+                        Padding="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                    <StackPanel Spacing="5" HorizontalAlignment="Center">
 
-                    <!-- Tiêu đề -->
-                    <TextBlock Text="Trình chọn ảnh"
-                               FontSize="20"
-                               FontWeight="SemiBold"
-                               Foreground="#333"
-                               HorizontalAlignment="Center"/>
+                        <!-- Tiêu đề -->
+                        <TextBlock Text="Chọn ảnh hóa đơn"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="#333"
+                                   HorizontalAlignment="Center"/>
 
-                    <!-- Khu vực xem trước ảnh -->
-                    <Border Background="#F8F8F8"
-                            BorderBrush="#DDD"
-                            BorderThickness="1"
-                            CornerRadius="10"
-                            Padding="10"
-                            HorizontalAlignment="Center">
-                        <Image x:Name="PreviewImage"
-                               Source="{Binding ImageSource}"
-                               Width="280" Height="280"
-                               Stretch="Uniform"
-                               HorizontalAlignment="Center"/>
-                    </Border>
+                        <!-- Khu vực xem trước ảnh -->
+                        <Border Background="#F8F8F8"
+                                BorderBrush="#DDD"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="5"
+                                HorizontalAlignment="Center">
+                            <Image x:Name="PreviewImage"
+                                   Source="{Binding ImageSource}"
+                                   Width="280" Height="280"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Center"/>
+                        </Border>
 
-                    <!-- Đường dẫn -->
-                    <TextBlock Text="{Binding FilePath}"
-                               FontSize="13"
-                               Foreground="#555"
-                               TextWrapping="Wrap"
-                               HorizontalAlignment="Center"/>
+                        <!-- Đường dẫn -->
+                        <TextBlock Text="{Binding FilePath}"
+                                   FontSize="13"
+                                   Foreground="#555"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Center"/>
 
-                    <!-- Các nút thao tác -->
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center"
-                                Spacing="10">
-                        <Button Content="📂 Chọn ảnh"
-                                Background="#4CAF50"
-                                Foreground="White"
-                                Padding="8,4"
-                                CornerRadius="8"
-                                Width="110"
-                                Click="OpenFileButton_Clicked"/>
+                        <!-- Các nút thao tác -->
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Spacing="10">
+                            <Button Classes="add-pic-button"
+                                    Padding="8,4"
+                                    CornerRadius="8"
+                                    Width="50"
+                                    Click="OpenFileButton_Clicked">
+                                <Svg Path="{StaticResource Picture}" 
+                                     Width="24" Height="24"
+                                     Css=".fill { fill: #fcd34d; }"></Svg>
+                            </Button>
 
-                        <Button Content="🗑️ Xóa"
-                                Background="#E53935"
-                                Foreground="White"
-                                Padding="8,4"
-                                CornerRadius="8"
-                                Width="80"
-                                />
+                            <Button Classes="remove-button"
+                                    Padding="8,4"
+                                    CornerRadius="8"
+                                    Width="50"
+                                    Command="{Binding RemoveImageCommand}"
+                            >
+                                <Svg Path="{StaticResource Delete}" 
+                                     Width="24" Height="24"
+                                     Css=".fill { fill: #fcd34d; }"></Svg>
+                            </Button>
+                            
+                            <Button Classes="send-button"
+                                    Padding="8,4"
+                                    CornerRadius="8"
+                                    Width="50"
+                            >
+                                <Svg Path="{StaticResource Send}" 
+                                     Width="24" Height="24"
+                                     Css=".fill { fill: #fcd34d; }"></Svg>
+                            </Button>
+                        </StackPanel>
+                        
+                        <!-- Captcha -->
+                        <TextBlock Text="Captcha"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="#333"
+                                   HorizontalAlignment="Center"/>
+
+                        <Border Background="#F8F8F8"
+                                BorderBrush="#DDD"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="5"
+                                HorizontalAlignment="Center">
+                            <Image 
+                                   Source="{Binding ImageSource}"
+                                   Width="280" Height="100"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Center"/>
+                        </Border>
+                        
                     </StackPanel>
-
-                </StackPanel>
-            </Border>
-        </StackPanel>
-
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
-
 </UserControl>

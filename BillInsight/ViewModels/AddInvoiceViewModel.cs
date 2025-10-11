@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reactive;
 using Avalonia.Media.Imaging;
 using BillInsight.Models.Products;
@@ -10,20 +11,6 @@ namespace BillInsight.ViewModels
 {
     public class AddInvoiceViewModel : ViewModelBase
     {
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => this.RaiseAndSetIfChanged(ref _name, value);
-        }
-
-        private decimal _price;
-        public decimal Price
-        {
-            get => _price;
-            set => this.RaiseAndSetIfChanged(ref _price, value); 
-        }
-        
         private string _filePath;
         public string FilePath
         {
@@ -42,6 +29,40 @@ namespace BillInsight.ViewModels
             set => this.RaiseAndSetIfChanged(ref _imageSource, value);
         }
 
+        public ReactiveCommand<Unit, Unit> RemoveImageCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddProductCommand { get; set; }
+        public ReactiveCommand<string, Unit> RemoveProductCommand { get; set; }
+        
+        public ObservableCollection<ProductModel> Products { get; set; } =
+        [
+            new("Sản phẩm A", 10000, "A"),
+            new("Sản phẩm B", 15000, "B"),
+            new("Sản phẩm C", 20000, "C" )
+        ];
+        
+        public AddInvoiceViewModel()
+        {
+            RemoveImageCommand = ReactiveCommand.Create(() =>
+            {
+                ImageSource = null;
+                FilePath = "";
+            });
+            
+            AddProductCommand = ReactiveCommand.Create(() =>
+            {
+                Products.Add(new("", 0, ""));
+            });
+            
+            RemoveProductCommand = ReactiveCommand.Create<string>((id) =>
+            {
+                var item = Products.FirstOrDefault(x => x.Id == id);
+                if (item != null)
+                {
+                    Products.Remove(item);
+                }
+            });
+        }
+        
         private void LoadImage(string path)
         {
             if (File.Exists(path))
@@ -61,20 +82,6 @@ namespace BillInsight.ViewModels
             {
                 ImageSource = null;
             }
-        }
-
-        
-        public ObservableCollection<ProductModel> Products { get; set; } =
-        [
-            new ProductModel() { Name = "Sản phẩm A", Price = 10000, PaymentMethod = "A" },
-            new ProductModel() { Name = "Sản phẩm B", Price = 15000, PaymentMethod = "B" },
-            new ProductModel() { Name = "Sản phẩm C", Price = 20000, PaymentMethod = "C" }
-        ];
-        
-        
-        public AddInvoiceViewModel()
-        {
-           
         }
         
         public override void Dispose()

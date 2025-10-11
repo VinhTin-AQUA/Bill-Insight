@@ -1,0 +1,52 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <TextBox IsEnabled="True" Text="Hello" />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="TextBox">
+        <!-- Kích thước và font -->
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Background" Value="#FFF"/>
+        <Setter Property="Foreground" Value="#222"/>
+        <Setter Property="BorderBrush" Value="#CCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <!-- <Setter Property="WatermarkBrush" Value="#888"/> -->
+        <Setter Property="FocusAdorner" Value="{x:Null}"/>
+
+        <!-- Hiệu ứng chuyển động nhỏ -->
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15"/>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <!-- Khi hover -->
+    <Style Selector="TextBox:pointerover /template/ Border">
+        <Setter Property="BorderBrush" Value="#86efac"/>
+        <Setter Property="Background" Value="#86efac"></Setter>
+    </Style>
+
+    <!-- Khi focus -->
+    <Style Selector="TextBox:focus-within /template/ Border">
+        <Setter Property="BorderBrush" Value="#86efac"/>
+        <Setter Property="Background" Value="#FAFAFA"/>
+    </Style>
+    
+    <Style Selector="TextBox:focus">
+        <Setter Property="Foreground" Value="#222"/>
+        <Setter Property="CaretBrush" Value="#222"/> <!-- màu trỏ chuột -->
+    </Style>
+
+    <!-- Khi disabled -->
+    <Style Selector="TextBox:disabled /template/ Border">
+        <Setter Property="Background" Value="Purple"/>
+        <Setter Property="BorderBrush" Value="Yellow"/>
+    </Style>
+</Styles>

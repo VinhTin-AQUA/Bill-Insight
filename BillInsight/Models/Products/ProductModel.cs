@@ -5,10 +5,18 @@ namespace BillInsight.Models.Products
 {
     public class ProductModel
     {
-        public string Name { get; set; } = string.Empty;
+        public string Id { get; set; }
+        public string Name { get; set; }
         public float Price { get; set; }
-        
-        public string PaymentMethod { get; set; } = string.Empty;
+        public string PaymentMethod { get; set; }
+
+        public ProductModel(string name, float price, string paymentMethod)
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = name;
+            Price = price;
+            PaymentMethod = paymentMethod;
+        }
     }
 
     public class Invoice

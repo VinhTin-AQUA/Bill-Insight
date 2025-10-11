@@ -11,6 +11,8 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://BillInsight/Styles/ButtonStyles.axaml"/>
+        <StyleInclude Source="avares://BillInsight/Styles/TextBoxStyles.axaml"/>
     </Application.Styles>
              
      <Application.Resources>

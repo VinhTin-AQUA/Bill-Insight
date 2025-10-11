@@ -1,0 +1,122 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <Button  Classes="send-button" >
+                <Svg Path="{StaticResource Picture}" 
+                     Width="24" Height="24"
+                     Css=".fill { fill: #fcd34d; }"></Svg>
+            </Button>
+        </Border>
+    </Design.PreviewWith>
+    
+    <!-- =============== remove button =============== -->
+    <Style Selector="Button.remove-button">
+        <Setter Property="Background" Value="#991b1b" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+        
+    <!-- hover -->
+    <Style Selector="Button.remove-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#fca5a5"/>
+    </Style>
+        
+    <!-- press -->
+    <Style Selector="Button.remove-button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#ef4444"/>
+    </Style>
+        
+    <Style Selector="Button.remove-button /template/ ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="FontSize" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <!-- =============== add-button =============== -->
+    <Style Selector="Button.add-button">
+        <Setter Property="Background" Value="#166534" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+        
+    <!-- hover -->
+    <Style Selector="Button.add-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#86efac"/>
+    </Style>
+        
+    <!-- press -->
+    <Style Selector="Button.add-button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#22c55e"/>
+    </Style>
+        
+    <Style Selector="Button.add-button /template/ ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="FontSize" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <!-- =============== add-pic-button =============== -->
+    <Style Selector="Button.add-pic-button">
+        <Setter Property="Background" Value="#166534" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+        
+    <!-- hover -->
+    <Style Selector="Button.add-pic-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#86efac"/>
+    </Style>
+        
+    <!-- press -->
+    <Style Selector="Button.add-pic-button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#22c55e"/>
+    </Style>
+        
+    <Style Selector="Button.add-pic-button /template/ ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="FontSize" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <!-- =============== send-button =============== -->
+    <Style Selector="Button.send-button">
+        <Setter Property="Background" Value="#1e40af" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+        
+    <!-- hover -->
+    <Style Selector="Button.send-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#93c5fd"/>
+    </Style>
+        
+    <!-- press -->
+    <Style Selector="Button.send-button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#3b82f6"/>
+    </Style>
+        
+    <Style Selector="Button.send-button /template/ ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="FontSize" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    
+</Styles>

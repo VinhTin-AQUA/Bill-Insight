@@ -8,9 +8,11 @@
         <entry key="BillInsight/Controls/InvoiceDetailsItem.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Sidebar.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/ButtonStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/Styles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SvgStyle.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/TextBoxStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/Themes.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/AddInvoice.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/AddInvoiceView.axaml" value="BillInsight/BillInsight.csproj" />

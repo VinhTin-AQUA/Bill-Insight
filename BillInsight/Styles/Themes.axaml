@@ -8,9 +8,11 @@
     <Color x:Key="green-50">#f0fdf4</Color>
     <Color x:Key="green-300">#86efac</Color>
     <Color x:Key="green-400">#4ade80</Color>
+    <Color x:Key="green-500">#22c55e</Color>
     <Color x:Key="green-800">#166534</Color>
     
     <Color x:Key="red-300">#fca5a5</Color>
+    <Color x:Key="red-500">#ef4444</Color>
     <Color x:Key="red-800">#991b1b</Color>
     
     <Color x:Key="blue-300">#93c5fd</Color>
@@ -39,4 +41,10 @@
     
     <!-- svg -->
     <x:String x:Key="MenuIcon" >avares://BillInsight/Assets/SVGs/menu_icon.svg</x:String>
+    <x:String x:Key="XCircleIcon" >avares://BillInsight/Assets/SVGs/XCircle.svg</x:String>
+    <x:String x:Key="AddLine" >avares://BillInsight/Assets/SVGs/add_line.svg</x:String>
+    <x:String x:Key="Picture" >avares://BillInsight/Assets/SVGs/pic.svg</x:String>
+    <x:String x:Key="Delete" >avares://BillInsight/Assets/SVGs/delete.svg</x:String>
+    <x:String x:Key="Save" >avares://BillInsight/Assets/SVGs/save.svg</x:String>
+    <x:String x:Key="Send" >avares://BillInsight/Assets/SVGs/send.svg</x:String>
 </ResourceDictionary>
