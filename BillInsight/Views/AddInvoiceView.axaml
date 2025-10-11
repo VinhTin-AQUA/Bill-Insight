@@ -12,9 +12,11 @@
         <vm:AddInvoiceViewModel/>
     </UserControl.DataContext>
     
-    <ScrollViewer>
-        <Grid ColumnDefinitions="3*,2*">
-            <StackPanel Grid.Column="0" Margin="20" Spacing="16">
+    
+    <Grid ColumnDefinitions="3*,2*">
+        <ScrollViewer Grid.Column="0">
+        
+            <StackPanel Margin="20" Spacing="16">
 
                 <!-- ========== NBan Section ========== -->
                 <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
@@ -101,11 +103,77 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            
-            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-                <Button Content="Chọn ảnh..." Click="OnChooseImageClick"/>
-                <Image x:Name="PreviewImage" Width="300" Height="300" Stretch="Uniform"/>
-            </StackPanel>
-        </Grid>
-    </ScrollViewer>
+                
+        </ScrollViewer>
+        
+        <StackPanel Grid.Column="1"
+            Width="400"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="15">
+
+            <!-- Thẻ chứa toàn bộ khung -->
+            <Border Background="#FFF"
+                    CornerRadius="12"
+                    BoxShadow="0 4 12 #00000030"
+                    Padding="20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <StackPanel Spacing="15" HorizontalAlignment="Center">
+
+                    <!-- Tiêu đề -->
+                    <TextBlock Text="Trình chọn ảnh"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="#333"
+                               HorizontalAlignment="Center"/>
+
+                    <!-- Khu vực xem trước ảnh -->
+                    <Border Background="#F8F8F8"
+                            BorderBrush="#DDD"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="10"
+                            HorizontalAlignment="Center">
+                        <Image x:Name="PreviewImage"
+                               Source="{Binding ImageSource}"
+                               Width="280" Height="280"
+                               Stretch="Uniform"
+                               HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <!-- Đường dẫn -->
+                    <TextBlock Text="{Binding FilePath}"
+                               FontSize="13"
+                               Foreground="#555"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Center"/>
+
+                    <!-- Các nút thao tác -->
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Spacing="10">
+                        <Button Content="📂 Chọn ảnh"
+                                Background="#4CAF50"
+                                Foreground="White"
+                                Padding="8,4"
+                                CornerRadius="8"
+                                Width="110"
+                                Click="OpenFileButton_Clicked"/>
+
+                        <Button Content="🗑️ Xóa"
+                                Background="#E53935"
+                                Foreground="White"
+                                Padding="8,4"
+                                CornerRadius="8"
+                                Width="80"
+                                />
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+    </Grid>
+
 </UserControl>

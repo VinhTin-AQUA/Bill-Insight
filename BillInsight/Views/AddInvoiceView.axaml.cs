@@ -1,8 +1,13 @@
+using System;
 using System.IO;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform.Storage;
+using BillInsight.Helpers;
+using BillInsight.ViewModels;
 
 namespace BillInsight.Views
 {
@@ -13,27 +18,26 @@ namespace BillInsight.Views
             InitializeComponent();
         }
         
-        private async void OnChooseImageClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private async void OpenFileButton_Clicked(object sender, RoutedEventArgs args)
         {
-            var dialog = new OpenFileDialog
+            // Get top level from the current control. Alternatively, you can use Window reference instead.
+            var topLevel = TopLevel.GetTopLevel(this);
+
+            // Start async operation to open the dialog.
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
             {
+                Title = "Open Text File",
                 AllowMultiple = false,
-                Filters =
-                {
-                    new FileDialogFilter() { Name = "Ảnh", Extensions = { "png", "jpg", "jpeg", "bmp" } }
-                }
-            };
-
-            string[]? result = await dialog.ShowAsync(this);
-
-            if (result != null && result.Length > 0)
+                FileTypeFilter = new[] { FilePickerFileTypes.ImageAll }
+            });
+            
+            if (files.Count >= 1)
             {
-                string filePath = result[0];
-
-                // Mở file ảnh và gán vào Image control
-                using (var stream = File.OpenRead(filePath))
+                var file = files[0];
+                
+                if (DataContext is AddInvoiceViewModel vm)
                 {
-                    PreviewImage.Source = new Bitmap(stream);
+                    vm.FilePath = FileHelpers.ToLocalPath(file.Path.ToString());
                 }
             }
         }
