@@ -1,15 +1,11 @@
-using System;
 using System.Collections.ObjectModel;
-using BillInsight.Models.Products;
+using BillInsight.Models.InvoiceDetails;
 
 namespace BillInsight.ViewModels
 {
     public class InvoiceDetailsViewModel : ViewModelBase
     {
-        public ObservableCollection<Invoice> Products { get; set; } = 
-        [
-            
-        ];
+        public ObservableCollection<InvoiceDetailsModel> Products { get; set; } = [];
 
         public InvoiceDetailsViewModel()
         {

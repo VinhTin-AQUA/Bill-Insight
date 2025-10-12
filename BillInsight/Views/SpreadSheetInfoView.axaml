@@ -4,5 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BillInsight.Views.SpreadSheetInfoView">
-    <TextBlock Foreground="Black" Text="SpreadSheetInfoView"/> 
+    
+    <Design.PreviewWith>
+        <Window Width="500" Height="550" />
+    </Design.PreviewWith>
+    
+    <Grid ColumnDefinitions="*, *" ColumnSpacing="20">
+        <!-- Cột trái -->
+        <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="20" 
+                BoxShadow="0 2 8 #00000022">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Spreadsheet" FontSize="20" FontWeight="Bold" Foreground="#2F3640"/>
+                
+                <StackPanel>
+                    <TextBlock Text="Sửa Link hiện tại:" FontWeight="SemiBold" Margin="0 0 0 5"/>
+                    <TextBox Watermark="Nhập link để chỉnh sửa..." />
+                    <Button Content="Save link" 
+                            Classes="normal-button"
+                            HorizontalAlignment="Left"
+                            Padding="5"
+                            Margin="0,5,0,0"/>
+                </StackPanel>
+                
+                <StackPanel>
+                    <TextBlock Text="Nhập tên sheet" FontWeight="SemiBold" Margin="0 0 0 5"/>
+                    <TextBox Watermark="Nhập link mới..." />
+                    <Button Content="Add sheet" 
+                            Classes="normal-button"
+                            HorizontalAlignment="Left"
+                            Padding="5"
+                            Margin="0,5,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Cột phải -->
+        <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="20"
+                BoxShadow="0 2 8 #00000022">
+            <StackPanel>
+                <TextBlock Text="Sheets" FontSize="20" FontWeight="Bold"
+                           Foreground="#2F3640" Margin="0 0 0 10"/>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <!-- RadioButton có cùng GroupName => chỉ chọn được 1 -->
+                        <RadioButton Foreground="Black" GroupName="Links" Content="https://openai.com" Margin="5"/>
+                        <RadioButton Foreground="Black" GroupName="Links" Content="https://github.com/avaloniaui" Margin="5"/>
+                        <RadioButton Foreground="Black" GroupName="Links" Content="https://learn.microsoft.com" Margin="5"/>
+                        <RadioButton Foreground="Black" GroupName="Links" Content="https://dotnetfoundation.org" Margin="5"/>
+                        <RadioButton Foreground="Black" GroupName="Links" Content="https://youtube.com" Margin="5"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Button Content="Save working sheet" 
+                        Classes="normal-button"
+                        HorizontalContentAlignment="Center"
+                        Padding="10" 
+                        Margin="0 15 0 0" />
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>

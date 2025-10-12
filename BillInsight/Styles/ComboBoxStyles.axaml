@@ -1,0 +1,49 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="ComboBox">
+        <Setter Property="Background" Value="#F9FAFB"/>
+        <Setter Property="BorderBrush" Value="#E5E7EB"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="Foreground" Value="#111827"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="MinHeight" Value="36"/>
+    </Style>
+    
+    <Style Selector="ComboBoxItem">
+        <Setter Property="Background" Value="#F9FAFB"/>
+        <Setter Property="BorderBrush" Value="#E5E7EB"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="Foreground" Value="#111827"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+    
+    
+
+    <!-- <Style Selector="ComboBox:pointerover /template/ Border"> -->
+    <!--     <Setter Property="BorderBrush" Value="#6366F1"/> -->
+    <!--     <Setter Property="Background" Value="#F3F4F6"/> -->
+    <!-- </Style> -->
+    <!-- -->
+    <!-- <Style Selector="ComboBox:focus /template/ Border"> -->
+    <!--     <Setter Property="BorderBrush" Value="#4F46E5"/> -->
+    <!--     <Setter Property="Background" Value="White"/> -->
+    <!-- </Style> -->
+    <!-- -->
+    <!-- <Style Selector="ComboBoxItem"> -->
+    <!--     <Setter Property="Padding" Value="8,4"/> -->
+    <!--     <Setter Property="FontSize" Value="14"/> -->
+    <!-- </Style> -->
+    <!-- -->
+    <!-- <Style Selector="ComboBoxItem:pointerover"> -->
+    <!--     <Setter Property="Background" Value="#EEF2FF"/> -->
+    <!--     <Setter Property="Foreground" Value="#4F46E5"/> -->
+    <!-- </Style> -->
+</Styles>

@@ -7,34 +7,50 @@
              x:DataType="vm:AddInvoiceViewModel"
              x:Class="BillInsight.Views.AddInvoiceView">
     
-    
     <UserControl.DataContext>
         <vm:AddInvoiceViewModel/>
     </UserControl.DataContext>
     
+    <Design.PreviewWith>
+        <Window Width="500" Height="550" />
+    </Design.PreviewWith>
     
     <Grid ColumnDefinitions="3*,2*">
         <ScrollViewer Grid.Column="0">
-        
             <StackPanel Margin="20" Spacing="16">
 
                 <!-- ========== NBan Section ========== -->
                 <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
                     <StackPanel Spacing="8">
                         <TextBlock Text="---- NBan ----" FontSize="20" FontWeight="Bold" Foreground="#006400" />
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="CÔNG TY CỔ PHẦN THƯƠNG MẠI BÁCH HÓA XANH" FontWeight="Bold" />
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="MST: 0310471746" />
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Địa chỉ: 128 Trần Quang Khải, Phường Tân Định, Thành Phố Hồ Chí Minh, Việt Nam." />
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="ĐT: 19001908" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding NBan.Ten}" FontWeight="Bold" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding NBan.MST}" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding NBan.DChi}" />
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding NBan.SDThoai}" />
                         
                         <Separator Margin="4"/>
                         <TextBlock Foreground="Black" Text="TTKhac:" FontWeight="Bold"/>
                         <StackPanel Spacing="2">
-                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="loaiHD = HDonGTKT"/>
-                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="nguoiBan = 225176 - Thái Thị Ngọc Vân"/>
-                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="TDVi = CÔNG TY CỔ PHẦN THƯƠNG MẠI BÁCH HÓA XANH"/>
-                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="diaChiCN = 26 Nguyễn Thượng Hiền, Phường Hạnh Thông, Thành phố Hồ Chí Minh, Việt Nam"/>
-                            <TextBlock TextWrapping="Wrap" Foreground="Black" Text="TenCN = ĐỊA ĐIỂM KINH DOANH CÔNG TY CỔ PHẦN THƯƠNG MẠI BÁCH HÓA XANH - CỬA HÀNG BÁCH HÓA XANH SỐ 101"/>
+                            <ItemsControl ItemsSource="{Binding NBan.TTKhac}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Foreground="Black" >
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} = {1}">
+                                                    <Binding Path="TTruong"/>
+                                                    <Binding Path="DLieu"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -43,11 +59,12 @@
                 <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
                     <StackPanel>
                         <DockPanel>
+                            <!-- Command="{Binding AddProductCommand}" -->
                             <Button DockPanel.Dock="Right" 
                                     Classes="add-button"
                                     Padding="6,2"
                                     Margin="10,0,0,0"
-                                    Command="{Binding AddProductCommand}"
+                                    
                             >
                                 <Svg  Path="{StaticResource AddLine}" Css=".fill { fill: #fff; } "
                                       Width="24" 
@@ -66,21 +83,30 @@
                             </Grid>
 
                             <!-- Danh sách sản phẩm -->
-                            <ItemsControl ItemsSource="{Binding Products}">
+                            <ItemsControl ItemsSource="{Binding HHDVuList}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid ColumnDefinitions="*,150,50" Margin="0,4,0,4">
                                             <!-- Tên sản phẩm -->
-                                            <TextBox Text="{Binding Name, Mode=TwoWay}" Grid.Column="0"/>
+                                            <TextBox Text="{Binding MHHDVu, Mode=TwoWay}" Grid.Column="0"/>
 
                                             <!-- Giá -->
-                                            <TextBox Text="{Binding Price, Mode=TwoWay}" Grid.Column="1" Margin="10,0,0,0"  HorizontalAlignment="Stretch"/>
+                                            <TextBox Grid.Column="1" Margin="10,0,0,0" 
+                                                     HorizontalAlignment="Stretch" >
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource MultiplyConverter}">
+                                                        <Binding Path="ThTien"/>
+                                                        <Binding Path="TSuat"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBox>
 
                                             <!-- Nút Xóa -->
+                                            <!-- Command="{Binding $parent[ItemsControl].((vm:AddInvoiceViewModel)DataContext).RemoveProductCommand}" -->
                                             <Button Classes="remove-button"
                                                     Margin="10,0,0,0"
                                                     Grid.Column="2"
-                                                    Command="{Binding $parent[ItemsControl].((vm:AddInvoiceViewModel)DataContext).RemoveProductCommand}"
+                                                    
                                                     CommandParameter="{Binding Id}"
                                                     >
                                                 <Svg  Path="{StaticResource XCircleIcon}" Css=".fill { fill: #fff; } "
@@ -93,12 +119,7 @@
                             </ItemsControl>
                             
                             <StackPanel>
-                                <TextBlock Text="Nhập Captcha"
-                                           FontSize="16"
-                                           Foreground="#333" />
-                                <TextBox />
-                                
-                                <Button Classes="remove-button" Background="#166534" 
+                                <Button Classes="add-pic-button" Background="#166534" 
                                         Margin="0,10,0,0">
                                     <Svg Path="{StaticResource Save}" Css=".fill { fill: #4ade80; } "
                                           Width="24" 
@@ -113,17 +134,64 @@
                 <Border Background="White" CornerRadius="8" Padding="16" BoxShadow="0 2 8 #AAA">
                     <StackPanel Spacing="4">
                         <TextBlock Text="---- TToan ----" FontSize="20" FontWeight="Bold" Foreground="#8B0000"/>
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Thuế suất: 5%, Tiền: 22606, Thuế: 1130"/>
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Thuế suất: 8%, Tiền: 39537, Thuế: 3163"/>
+                        
+                        <ItemsControl ItemsSource="{Binding TToan.THTTLTSuat}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                     <TextBlock TextWrapping="Wrap" Foreground="Black">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}Thuế suất: {0}, Tiền: {1}, Thuế: {2}">
+                                                <Binding Path="TSuat"/>
+                                                <Binding Path="ThTien"/>
+                                                <Binding Path="TThue"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
                         <Separator Margin="4"/>
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tổng cộng chưa thuế: 62143" FontWeight="Bold"/>
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tiền thuế: 4293"/>
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tổng thanh toán (số): 66436" FontWeight="Bold"/>
-                        <TextBlock TextWrapping="Wrap" Foreground="Black" Text="Tổng thanh toán (chữ): Sáu mươi sáu nghìn bốn trăm ba mươi sáu đồng chẵn" FontStyle="Italic"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" FontWeight="Bold">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tổng cộng chưa thuế: {0}">
+                                    <Binding Path="TToan.TgTCThue"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tiền thuế: {0}">
+                                    <Binding Path="TToan.TgTThue"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" FontWeight="Bold">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tổng thanh toán (số): {0}">
+                                    <Binding Path="TToan.TgTTTBSo"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        
+                        <TextBlock TextWrapping="Wrap" Foreground="Black" FontStyle="Italic" >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Tổng thanh toán (chữ): {0}">
+                                    <Binding Path="TToan.TgTTTBChu"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
             </StackPanel>
-                
         </ScrollViewer>
         
         <ScrollViewer Grid.Column="1">
@@ -141,15 +209,63 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                     <StackPanel Spacing="5" HorizontalAlignment="Center">
+                        
+                        <!-- get capthca -->
+                        <Button Content="Get captcha"
+                                Classes="add-pic-button"
+                                Padding="8,4"
+                                CornerRadius="8"
+                                HorizontalContentAlignment="Center"
+                                Command="{Binding GetCaptchaCommand}"
+                        >
+                        </Button>
 
-                        <!-- Tiêu đề -->
+                        <Border Background="#F8F8F8"
+                                BorderBrush="#DDD"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="5"
+                                HorizontalAlignment="Center">
+                            <Image
+                                Source="{Binding AddInvoiceModel.CaptchaPath, Converter={StaticResource ImagePathToBitmapConverter}}"
+                                Width="280" Height="100"
+                                Stretch="Uniform"
+                                HorizontalAlignment="Center" />
+                        </Border>
+                        
+                        <!-- nhap captcha -->
+                        <StackPanel>
+                            <TextBlock Text="Nhập Captcha"
+                                       FontSize="16"
+                                       Foreground="#333" />
+                            <TextBox Text="{Binding AddInvoiceModel.CaptchaCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        
+                        <!-- nhap CT va ma HD -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Nhập mã hóa đơn"
+                                           FontSize="16"
+                                           Foreground="#333" />
+                                <TextBox Margin="0,0,0,5" Text="{Binding AddInvoiceModel.MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+
+                            
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Nhập mã CT"
+                                           FontSize="16"
+                                           Foreground="#333" />
+                                <TextBox Margin="0,0,0,5" Text="{Binding AddInvoiceModel.MaCT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Grid>
+                        
+                        <!-- chon anh hoa don -->
                         <TextBlock Text="Chọn ảnh hóa đơn"
                                    FontSize="20"
                                    FontWeight="SemiBold"
                                    Foreground="#333"
                                    HorizontalAlignment="Center"/>
 
-                        <!-- Khu vực xem trước ảnh -->
                         <Border Background="#F8F8F8"
                                 BorderBrush="#DDD"
                                 BorderThickness="1"
@@ -157,14 +273,14 @@
                                 Padding="5"
                                 HorizontalAlignment="Center">
                             <Image x:Name="PreviewImage"
-                                   Source="{Binding ImageSource}"
+                                   Source="{Binding AddInvoiceModel.FilePath, Converter={StaticResource ImagePathToBitmapConverter}}"
                                    Width="280" Height="280"
                                    Stretch="Uniform"
                                    HorizontalAlignment="Center"/>
                         </Border>
 
-                        <!-- Đường dẫn -->
-                        <TextBlock Text="{Binding FilePath}"
+                        <!-- Đường dẫn anh HD -->
+                        <TextBlock Text="{Binding AddInvoiceModel.FilePath}"
                                    FontSize="13"
                                    Foreground="#555"
                                    TextWrapping="Wrap"
@@ -199,33 +315,13 @@
                                     Padding="8,4"
                                     CornerRadius="8"
                                     Width="50"
+                                    Command="{Binding SendAPICommand}"
                             >
                                 <Svg Path="{StaticResource Send}" 
                                      Width="24" Height="24"
                                      Css=".fill { fill: #fcd34d; }"></Svg>
                             </Button>
                         </StackPanel>
-                        
-                        <!-- Captcha -->
-                        <TextBlock Text="Captcha"
-                                   FontSize="20"
-                                   FontWeight="SemiBold"
-                                   Foreground="#333"
-                                   HorizontalAlignment="Center"/>
-
-                        <Border Background="#F8F8F8"
-                                BorderBrush="#DDD"
-                                BorderThickness="1"
-                                CornerRadius="10"
-                                Padding="5"
-                                HorizontalAlignment="Center">
-                            <Image 
-                                   Source="{Binding ImageSource}"
-                                   Width="280" Height="100"
-                                   Stretch="Uniform"
-                                   HorizontalAlignment="Center"/>
-                        </Border>
-                        
                     </StackPanel>
                 </Border>
             </StackPanel>

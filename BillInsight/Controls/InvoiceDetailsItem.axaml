@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:local="using:BillInsight.Controls"
-             xmlns:model="using:BillInsight.Models.Products"
+             xmlns:model="using:BillInsight.Models.InvoiceDetails"
              x:Class="BillInsight.Controls.InvoiceDetailsItem">
     <Border
         CornerRadius="8"
@@ -34,14 +34,14 @@
                 </ItemsControl.ItemsPanel>
 
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="model:ProductModel">
+                    <DataTemplate x:DataType="model:ProductItem">
                         <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
-                            <TextBlock Text="{Binding Name}"
+                            <TextBlock Text="{Binding ProductName}"
                                        Foreground="#222222"
                                        FontSize="20"
                                        VerticalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}"
+                            <TextBlock Text="{Binding ProductPrice, StringFormat='{}{0:C}'}"
                                        Grid.Column="1"
                                        Foreground="#444444"
                                        FontSize="20"

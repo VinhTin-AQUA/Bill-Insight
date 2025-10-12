@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
-            <Button  Classes="send-button" >
+            <Button  Classes="normal-button" >
                 <Svg Path="{StaticResource Picture}" 
                      Width="24" Height="24"
                      Css=".fill { fill: #fcd34d; }"></Svg>
@@ -118,5 +118,31 @@
         </Setter>
     </Style>
     
+    <!-- =============== normal-button =============== -->
+    <Style Selector="Button.normal-button">
+        <Setter Property="Background" Value="#166534" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+        
+    <!-- hover -->
+    <Style Selector="Button.normal-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#86efac"/>
+    </Style>
+        
+    <!-- press -->
+    <Style Selector="Button.normal-button:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="#22c55e"/>
+    </Style>
+        
+    <Style Selector="Button.normal-button /template/ ContentPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="FontSize" Duration="0:0:0.2" />
+                <BrushTransition Property="Background" Duration="0:0:0.1" />
+            </Transitions>
+        </Setter>
+    </Style>
     
 </Styles>

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
-using BillInsight.Models.Products;
+using BillInsight.Models.InvoiceDetails;
 
 namespace BillInsight.Controls
 {
@@ -10,10 +10,10 @@ namespace BillInsight.Controls
     {
         #region properties
 
-        public static readonly StyledProperty<List<ProductModel>> ProductsProperty =
-            AvaloniaProperty.Register<InvoiceDetailsItem, List<ProductModel>>(nameof(Products), []);
+        public static readonly StyledProperty<List<ProductItem>> ProductsProperty =
+            AvaloniaProperty.Register<InvoiceDetailsItem, List<ProductItem>>(nameof(Products), []);
 
-        public List<ProductModel> Products
+        public List<ProductItem> Products
         {
             get => GetValue(ProductsProperty);
             set => SetValue(ProductsProperty, value);
