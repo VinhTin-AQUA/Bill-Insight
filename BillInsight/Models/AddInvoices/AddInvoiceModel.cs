@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Avalonia.Media.Imaging;
+using BillInsight.Helpers;
 using ReactiveUI;
 
 namespace BillInsight.Models.AddInvoices
@@ -157,6 +158,13 @@ namespace BillInsight.Models.AddInvoices
             get => _TSuat;
             set => this.RaiseAndSetIfChanged(ref _TSuat, value);
         }
+        
+        private decimal _ThTienSauLaiSuat;
+        public decimal ThTienSauLaiSuat
+        {
+            get => _ThTienSauLaiSuat;
+            set => this.RaiseAndSetIfChanged(ref _ThTienSauLaiSuat, value);
+        }
 
         public HHDVu(string mHHDVu, string tHHDVu, string dVTinh, int sLuong, decimal dGia, decimal thTien, string tSuat)
         {
@@ -168,6 +176,14 @@ namespace BillInsight.Models.AddInvoices
             DGia = dGia;
             ThTien = thTien;
             TSuat = tSuat;
+            ThTienSauLaiSuat = Math.Round(ThTien + ThTien * NumberHelpers.ParsePercentage(TSuat));
+        }
+        
+        public HHDVu()
+        {
+            Id = Guid.NewGuid().ToString();
+            THHDVu = "";
+            ThTienSauLaiSuat = 0;
         }
     }
 
