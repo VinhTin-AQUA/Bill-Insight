@@ -16,7 +16,7 @@ namespace BillInsight.ViewModels
     {
         #region props
         
-        private NBan _NBan;
+        private NBan _NBan = new();
         public NBan NBan
         {
             get => _NBan;
@@ -31,14 +31,14 @@ namespace BillInsight.ViewModels
             set => this.RaiseAndSetIfChanged(ref _hhdVuList, value);
         }
         
-        private TToan _TToan;
+        private TToan _TToan = new();
         public TToan TToan
         {
             get => _TToan;
             set => this.RaiseAndSetIfChanged(ref _TToan, value);
         }
         
-        private AddInvoiceModel _AddInvoiceModel;
+        private AddInvoiceModel _AddInvoiceModel = new();
         public AddInvoiceModel AddInvoiceModel
         {
             get => _AddInvoiceModel;
@@ -67,21 +67,15 @@ namespace BillInsight.ViewModels
         #region servives
 
         public BachHoaXanhService BachHoaXanhService { get; set; }
+        public GoogleSpreadsheetService GoogleSpreadsheetService { get; set; }
 
         #endregion
         
         public AddInvoiceViewModel()
         {
             BachHoaXanhService = Locator.Current.GetService<BachHoaXanhService>()!;
-            InitProps();
+            GoogleSpreadsheetService = Locator.Current.GetService<GoogleSpreadsheetService>()!;
             InitCommands();
-        }
-
-        private void InitProps()
-        {
-            NBan = new NBan();
-            TToan = new TToan();
-            AddInvoiceModel = new AddInvoiceModel();
         }
         
         private void InitCommands()
@@ -119,7 +113,6 @@ namespace BillInsight.ViewModels
                 NBan =  nban;
                 HHDVuList = new ObservableCollection<HHDVu>(hhdvuList);
                 TToan =  ttoan;
-                Console.WriteLine(HHDVuList.Count);
             });
 
             AddInvoiceDetailCommand = ReactiveCommand.Create(() =>
@@ -139,7 +132,49 @@ namespace BillInsight.ViewModels
                 
             SaveInvoiceCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                FolderHelpers.CleanTempFolder();
+                // foreach (var item in HHDVuList)
+                // {
+                //     Console.WriteLine($"{item.THHDVu}: {item.ThTienSauLaiSuat}");
+                // }
+
+                // var r = await GoogleSpreadsheetService.ReadDataFromCell<string>("sheet1","B2");
+                // Console.WriteLine(r);
+                
+                // var r = await GoogleSpreadsheetService.WriteDataToCell("sheet1","E1", 123);
+                // Console.WriteLine(r);
+                
+                // var r = await GoogleSpreadsheetService.GetDataRow<string>("sheet1","A1:C1");
+                // r.ForEach(x =>
+                // {
+                //     Console.WriteLine(x);
+                // });
+                
+                
+                // var r = await GoogleSpreadsheetService.GetDataColumn<string>("sheet1","B1:B13");
+                // r.ForEach(x =>
+                // {
+                //     Console.WriteLine(x);
+                // });
+                
+                // var r = await GoogleSpreadsheetService.GetDataMatrix<string>("sheet1","A1:C3");
+                // foreach (var item in r)
+                // {
+                //     foreach (var d in item)
+                //     {
+                //         Console.WriteLine(d);
+                //     }
+                // }
+
+                // var r = await GoogleSpreadsheetService.CreateSheet("New Sheet");
+                // Console.WriteLine(r);
+                
+                var r = await GoogleSpreadsheetService.GetSheets();
+                foreach (var item in r)
+                {
+                    Console.WriteLine($"{item.Id} : {item.Title}");
+                }
+
+                // FolderHelpers.CleanTempFolder();
             });
         }
         

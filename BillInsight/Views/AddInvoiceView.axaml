@@ -114,7 +114,8 @@
                             
                             <StackPanel>
                                 <Button Classes="add-pic-button" Background="#166534" 
-                                        Margin="0,10,0,0">
+                                        Margin="0,10,0,0"
+                                        Command="{Binding SaveInvoiceCommand}">
                                     <Svg Path="{StaticResource Save}" Css=".fill { fill: #4ade80; } "
                                           Width="24" 
                                           Height="24" ></Svg>
