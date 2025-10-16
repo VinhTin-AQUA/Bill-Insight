@@ -3,6 +3,7 @@
              x:Class="BillInsight.App"
              xmlns:local="using:BillInsight"
              xmlns:converters="clr-namespace:BillInsight.Converters"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -15,8 +16,9 @@
         <StyleInclude Source="avares://BillInsight/Styles/ButtonStyles.axaml"/>
         <StyleInclude Source="avares://BillInsight/Styles/TextBoxStyles.axaml"/>
         <StyleInclude Source="avares://BillInsight/Styles/ComboBoxStyles.axaml"/>
+        <dialogHostAvalonia:DialogHostStyles />
     </Application.Styles>
-             
+       
      <Application.Resources>
          <ResourceDictionary>
              <ResourceDictionary.MergedDictionaries>

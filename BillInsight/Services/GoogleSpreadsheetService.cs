@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BillInsight.Models.SpreadSheetInfos;
 using Google.Apis.Auth.OAuth2;
-using Google.Apis.Json;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 
 namespace BillInsight.Services
 {
-    public class Sheet
-    {
-        public int? Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-    }
-    
     public class GoogleSpreadsheetService
     {
         private SheetsService service;
@@ -236,11 +230,11 @@ namespace BillInsight.Services
             return appendResponse.Updates.UpdatedCells != null && appendResponse.Updates.UpdatedCells > 0;
         }
         
-        public async Task<List<Sheet>> GetSheets()
+        public async Task<List<SheetModel>> GetSheets()
         {
             var request = service.Spreadsheets.Get(spreadsheetId);
             var response = await request.ExecuteAsync();
-            List<Sheet> sheets = [];
+            List<SheetModel> sheets = [];
             foreach (var sheet in response.Sheets)
             {
                 var properties = sheet.Properties;

@@ -254,57 +254,10 @@
                             </StackPanel>
                         </Grid>
                         
-                        <!-- chon anh hoa don -->
-                        <TextBlock Text="Chọn ảnh hóa đơn"
-                                   FontSize="20"
-                                   FontWeight="SemiBold"
-                                   Foreground="#333"
-                                   HorizontalAlignment="Center"/>
-
-                        <Border Background="#F8F8F8"
-                                BorderBrush="#DDD"
-                                BorderThickness="1"
-                                CornerRadius="10"
-                                Padding="5"
-                                HorizontalAlignment="Center">
-                            <Image x:Name="PreviewImage"
-                                   Source="{Binding AddInvoiceModel.FilePath, Converter={StaticResource ImagePathToBitmapConverter}}"
-                                   Width="280" Height="280"
-                                   Stretch="Uniform"
-                                   HorizontalAlignment="Center"/>
-                        </Border>
-
-                        <!-- Đường dẫn anh HD -->
-                        <TextBlock Text="{Binding AddInvoiceModel.FilePath}"
-                                   FontSize="13"
-                                   Foreground="#555"
-                                   TextWrapping="Wrap"
-                                   HorizontalAlignment="Center"/>
-
                         <!-- Các nút thao tác -->
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center"
                                     Spacing="10">
-                            <Button Classes="add-pic-button"
-                                    Padding="8,4"
-                                    CornerRadius="8"
-                                    Width="50"
-                                    Click="OpenFileButton_Clicked">
-                                <Svg Path="{StaticResource Picture}" 
-                                     Width="24" Height="24"
-                                     Css=".fill { fill: #fcd34d; }"></Svg>
-                            </Button>
-
-                            <Button Classes="remove-button"
-                                    Padding="8,4"
-                                    CornerRadius="8"
-                                    Width="50"
-                                    Command="{Binding RemoveImageCommand}"
-                            >
-                                <Svg Path="{StaticResource Delete}" 
-                                     Width="24" Height="24"
-                                     Css=".fill { fill: #fcd34d; }"></Svg>
-                            </Button>
                             
                             <Button Classes="send-button"
                                     Padding="8,4"

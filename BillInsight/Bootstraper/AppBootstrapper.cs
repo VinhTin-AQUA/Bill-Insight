@@ -11,6 +11,7 @@ namespace BillInsight.Bootstraper
             Locator.CurrentMutable.RegisterConstant(new InvoiceDataService(), typeof(InvoiceDataService));
             Locator.CurrentMutable.RegisterConstant(new BachHoaXanhService(), typeof(BachHoaXanhService));
             Locator.CurrentMutable.RegisterConstant(new GoogleSpreadsheetService(), typeof(GoogleSpreadsheetService));
+            Locator.CurrentMutable.RegisterConstant(new YesNoDialogService(), typeof(YesNoDialogService));
         }
     }
 }

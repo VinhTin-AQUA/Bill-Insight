@@ -2,9 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:BillInsight.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BillInsight.Views.SpreadSheetInfoView">
+             x:Class="BillInsight.Views.SpreadSheetInfoView"
+             x:DataType="vm:SpreadSheetInfoViewModel">
     
+    <UserControl.DataContext>
+        <vm:SpreadSheetInfoViewModel/>
+    </UserControl.DataContext>
+
     <Design.PreviewWith>
         <Window Width="500" Height="550" />
     </Design.PreviewWith>
@@ -17,9 +23,13 @@
                 <TextBlock Text="Spreadsheet" FontSize="20" FontWeight="Bold" Foreground="#2F3640"/>
                 
                 <StackPanel>
-                    <TextBlock Text="Sửa Link hiện tại:" FontWeight="SemiBold" Margin="0 0 0 5"/>
-                    <TextBox Watermark="Nhập link để chỉnh sửa..." />
-                    <Button Content="Save link" 
+                    <TextBlock Foreground="Black" Text="Spreadsheet URL:" FontWeight="SemiBold" Margin="0 0 0 5"/>
+                    <TextBox Watermark="Spreadsheet URL"  Margin="0 0 0 10" Text="{Binding AppConfig.SpreadSheetUrl, Mode=TwoWay}"/>
+                    <TextBlock Foreground="Black" Text="Spreadsheet ID:" FontWeight="SemiBold"  Margin="0 0 0 5"/>
+                    <TextBox Watermark="Spreadsheet ID"  Margin="0 0 0 10" Text="{Binding AppConfig.SpreadSheetId, Mode=TwoWay}" />
+                    <TextBlock Foreground="Black" Text="Credential File Path:" FontWeight="SemiBold"  Margin="0 0 0 5"/>
+                    <TextBox Watermark="Credential File Path"  Margin="0 0 0 10" Text="{Binding AppConfig.ServiceAccountCredentialFilePath, Mode=TwoWay}" />
+                    <Button Content="Save" 
                             Classes="normal-button"
                             HorizontalAlignment="Left"
                             Padding="5"
@@ -27,8 +37,11 @@
                 </StackPanel>
                 
                 <StackPanel>
-                    <TextBlock Text="Nhập tên sheet" FontWeight="SemiBold" Margin="0 0 0 5"/>
-                    <TextBox Watermark="Nhập link mới..." />
+                    <TextBlock Foreground="Black" 
+                               Text="{Binding NewSheetName}" 
+                               FontWeight="SemiBold" 
+                               Margin="0 0 0 5"/>
+                    <TextBox Watermark="Sheet name" />
                     <Button Content="Add sheet" 
                             Classes="normal-button"
                             HorizontalAlignment="Left"
@@ -38,7 +51,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Cột phải -->
         <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="20"
                 BoxShadow="0 2 8 #00000022">
             <StackPanel>
@@ -46,14 +58,34 @@
                            Foreground="#2F3640" Margin="0 0 0 10"/>
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <!-- RadioButton có cùng GroupName => chỉ chọn được 1 -->
-                        <RadioButton Foreground="Black" GroupName="Links" Content="https://openai.com" Margin="5"/>
-                        <RadioButton Foreground="Black" GroupName="Links" Content="https://github.com/avaloniaui" Margin="5"/>
-                        <RadioButton Foreground="Black" GroupName="Links" Content="https://learn.microsoft.com" Margin="5"/>
-                        <RadioButton Foreground="Black" GroupName="Links" Content="https://dotnetfoundation.org" Margin="5"/>
-                        <RadioButton Foreground="Black" GroupName="Links" Content="https://youtube.com" Margin="5"/>
-                    </StackPanel>
+                    <ItemsControl ItemsSource="{Binding Sheets}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#DDD" BorderThickness="1" Padding="5" CornerRadius="5" Margin="5">
+                                    <DockPanel>
+                                        <RadioButton GroupName="Links" 
+                                                     IsChecked="{Binding IsActive}" 
+                                                     Margin="5,0" 
+                                                     VerticalAlignment="Center" 
+                                                     Content=""/>
+
+                                        <TextBlock Text="{Binding Title}" 
+                                                 Width="180" 
+                                                 Margin="5,0" 
+                                                 VerticalAlignment="Center" />
+
+                                        <Button Content="❌" 
+                                                Background="Transparent" 
+                                                Foreground="Red" 
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Right" 
+                                                Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}"
+                                            />
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </ScrollViewer>
 
                 <Button Content="Save working sheet" 

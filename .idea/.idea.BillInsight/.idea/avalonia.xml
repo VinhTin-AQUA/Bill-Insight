@@ -5,9 +5,11 @@
       <map>
         <entry key="BillInsight/App.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/FruitBow.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/InvoiceDetailsItem.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Sidebar.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/YesNoDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/ButtonStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/ComboBoxStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
@@ -15,6 +17,7 @@
         <entry key="BillInsight/Styles/SvgStyle.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/TextBoxStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/Themes.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/ViewModels/ConfirmDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/AddInvoice.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/AddInvoiceView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/BillDetailsView.axaml" value="BillInsight/BillInsight.csproj" />

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="using:BillInsight.Controls"
+        xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BillInsight.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -15,12 +16,18 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-    <Border>
-        <Grid ColumnDefinitions="Auto,*">
-            <controls:Sidebar Grid.Column="0" />
-            <ContentControl Grid.Column="1" Content="{Binding NavigationService.CurrentPage}" />
-        </Grid>
-    </Border>
+    
+    <dialogHost:DialogHost CloseOnClickAway="True" Identifier="GlobalDialogHost">
+        <dialogHost:DialogHost.DialogContent>
+            <!-- Nội dung dialog mặc định hoặc placeholder -->
+        </dialogHost:DialogHost.DialogContent>
+        
+        <Border>
+            <Grid ColumnDefinitions="Auto,*">
+                <controls:Sidebar Grid.Column="0" />
+                <ContentControl Grid.Column="1" Content="{Binding NavigationService.CurrentPage}" />
+            </Grid>
+        </Border>
+    </dialogHost:DialogHost>
 
 </Window>

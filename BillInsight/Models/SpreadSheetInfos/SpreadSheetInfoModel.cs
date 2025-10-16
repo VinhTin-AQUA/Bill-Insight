@@ -10,9 +10,10 @@ namespace BillInsight.Models.SpreadSheetInfos
         public string SheetName { get; set; } = string.Empty;
     }
 
-    public class Sheet
+    public class SheetModel
     {
-        public string SheetName { get; set; } = string.Empty;
-        public string SheetId { get; set; } = string.Empty;
+        public int? Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
     }
 }
