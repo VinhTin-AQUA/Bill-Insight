@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input.Raw;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -19,22 +20,47 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
-        // Đăng ký Global Exception Handlers
         RegisterGlobalExceptionHandlers();
-        _ = new AppBootstrapper();
+        var appBootstrapper = new AppBootstrapper();
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            var splashScreenViewModel = new SplashScreenViewModel();
+            var splashScreenView = new SplashScreenView()
+            {
+                DataContext = splashScreenViewModel
+            };
+            desktop.MainWindow = splashScreenView;
+            splashScreenView.Show();
+            
+            await appBootstrapper.InitAsync();
+
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(2));
+                splashScreenViewModel.Message = "Init services";
+            }
+            catch
+            {
+                splashScreenView.Close();
+                return;
+            }
+            
+            var mainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),
             };
-        }
 
+            desktop.MainWindow = mainWindow;
+            mainWindow.Show();
+            splashScreenView.Close();
+        }
+        
         base.OnFrameworkInitializationCompleted();
     }
+    
     
     private void RegisterGlobalExceptionHandlers()
     {

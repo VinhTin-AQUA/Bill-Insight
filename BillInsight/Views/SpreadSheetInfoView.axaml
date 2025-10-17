@@ -24,16 +24,17 @@
                 
                 <StackPanel>
                     <TextBlock Foreground="Black" Text="Spreadsheet URL:" FontWeight="SemiBold" Margin="0 0 0 5"/>
-                    <TextBox Watermark="Spreadsheet URL"  Margin="0 0 0 10" Text="{Binding AppConfig.SpreadSheetUrl, Mode=TwoWay}"/>
+                    <TextBox Watermark="Spreadsheet URL"  Margin="0 0 0 10" Text="{Binding ConfigService.Config.SpreadSheetUrl, Mode=TwoWay}"/>
                     <TextBlock Foreground="Black" Text="Spreadsheet ID:" FontWeight="SemiBold"  Margin="0 0 0 5"/>
-                    <TextBox Watermark="Spreadsheet ID"  Margin="0 0 0 10" Text="{Binding AppConfig.SpreadSheetId, Mode=TwoWay}" />
+                    <TextBox Watermark="Spreadsheet ID"  Margin="0 0 0 10" Text="{Binding ConfigService.Config.SpreadSheetId, Mode=TwoWay}" />
                     <TextBlock Foreground="Black" Text="Credential File Path:" FontWeight="SemiBold"  Margin="0 0 0 5"/>
-                    <TextBox Watermark="Credential File Path"  Margin="0 0 0 10" Text="{Binding AppConfig.ServiceAccountCredentialFilePath, Mode=TwoWay}" />
+                    <TextBox Watermark="Credential File Path"  Margin="0 0 0 10" Text="{Binding ConfigService.Config.ServiceAccountCredentialFilePath, Mode=TwoWay}" />
                     <Button Content="Save" 
                             Classes="normal-button"
                             HorizontalAlignment="Left"
                             Padding="5"
-                            Margin="0,5,0,0"/>
+                            Margin="0,5,0,0"
+                            Command="{Binding SaveConfigCommand}"/>
                 </StackPanel>
                 
                 <StackPanel>
@@ -62,26 +63,43 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="#DDD" BorderThickness="1" Padding="5" CornerRadius="5" Margin="5">
-                                    <DockPanel>
-                                        <RadioButton GroupName="Links" 
-                                                     IsChecked="{Binding IsActive}" 
-                                                     Margin="5,0" 
-                                                     VerticalAlignment="Center" 
+                                    <Grid ColumnDefinitions="Auto,*,Auto" Margin="5,0">
+                                        <!-- Cột 0: RadioButton -->
+                                        <RadioButton Grid.Column="0"
+                                                     GroupName="Links"
+                                                     IsChecked="{Binding IsActive}"
+                                                     VerticalAlignment="Center"
+                                                     Margin="5,0"
                                                      Content=""/>
 
-                                        <TextBlock Text="{Binding Title}" 
-                                                 Width="180" 
-                                                 Margin="5,0" 
-                                                 VerticalAlignment="Center" />
+                                        <!-- Cột 1: TextBox chiếm toàn bộ phần còn lại -->
+                                        <TextBox Grid.Column="1"
+                                                 Text="{Binding Title}"
+                                                 Margin="5,0"
+                                                 Foreground="Black"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Stretch"/>
 
-                                        <Button Content="❌" 
-                                                Background="Transparent" 
-                                                Foreground="Red" 
+                                        <!-- Cột 2: Nút xóa -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5">
+                                            <Button 
+                                                Content="❌"
+                                                Background="Transparent"
+                                                Foreground="Red"
                                                 BorderThickness="0"
-                                                HorizontalAlignment="Right" 
-                                                Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}"
-                                            />
-                                    </DockPanel>
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}"/>
+                                            <Button 
+                                                Content="✅"
+                                                Background="Transparent"
+                                                Foreground="Red"
+                                                BorderThickness="0"
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}"/>
+                                        </StackPanel>
+                                        
+                                    </Grid>
+
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

@@ -5,7 +5,7 @@ namespace BillInsight.Helpers
 {
     public enum AppFolders
     {
-        AppFolder, TempData
+        AppFolder, TempData, Config
     }
         
     public class FolderHelpers
@@ -19,6 +19,7 @@ namespace BillInsight.Helpers
             {
                 AppFolders.AppFolder => Path.Combine(LocalApplicationData, "BillInsight"),
                 AppFolders.TempData => Path.Combine(AppFolder, "TempData"),
+                AppFolders.Config => Path.Combine(AppFolder, "Config"),
                 
                 _ => ""
             };

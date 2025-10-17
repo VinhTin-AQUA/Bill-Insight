@@ -28,6 +28,7 @@
         <PackageReference Include="Google.Apis.Auth" Version="1.72.0" />
         <PackageReference Include="Google.Apis.Drive.v3" Version="1.71.0.3905" />
         <PackageReference Include="Google.Apis.Sheets.v4" Version="1.70.0.3819" />
+        <PackageReference Include="JsonFlatFileDataStore" Version="2.4.2" />
         <PackageReference Include="Splat" Version="15.5.3" />
         <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="17.1.1" />
         <PackageReference Include="Svg.Controls.Skia.Avalonia" Version="11.3.6.2" />

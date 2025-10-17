@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BillInsight.Services;
 using Splat;
 
@@ -12,6 +13,13 @@ namespace BillInsight.Bootstraper
             Locator.CurrentMutable.RegisterConstant(new BachHoaXanhService(), typeof(BachHoaXanhService));
             Locator.CurrentMutable.RegisterConstant(new GoogleSpreadsheetService(), typeof(GoogleSpreadsheetService));
             Locator.CurrentMutable.RegisterConstant(new YesNoDialogService(), typeof(YesNoDialogService));
+            Locator.CurrentMutable.RegisterConstant(new ConfigService(), typeof(ConfigService));
+        }
+
+        public async Task InitAsync()
+        {
+            var ConfigService = Locator.Current.GetService<ConfigService>()!;
+            await ConfigService.InitAsync();
         }
     }
 }

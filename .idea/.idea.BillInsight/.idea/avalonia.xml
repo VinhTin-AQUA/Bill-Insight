@@ -25,6 +25,9 @@
         <entry key="BillInsight/Views/InvoiceImagesView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/MainWindow.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/SettingsView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/SplashScreenView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/SplashView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/SplashWindow.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/SpreadSheetInfoView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/StatisticalView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/StatisticalViewModel.axaml" value="BillInsight/BillInsight.csproj" />

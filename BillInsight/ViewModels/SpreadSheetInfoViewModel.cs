@@ -19,21 +19,23 @@ namespace BillInsight.ViewModels
             set => this.RaiseAndSetIfChanged(ref _sheets, value);
         }
         
-        public ReactiveCommand<Unit, Unit> SaveConfigSheetCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> SaveConfigCommand { get; set; }
         public ReactiveCommand<Unit, Unit> RemoveSheetCommand { get; set; }
 
-        public AppConfig AppConfig { get; set; }
         public string NewSheetName { get; set; } = string.Empty;
         
         #region services
 
         private YesNoDialogService YesNoDialogService { get; set; }
+        public ConfigService ConfigService { get; set; }
 
         #endregion
 
         public SpreadSheetInfoViewModel()
         {
             YesNoDialogService = Locator.Current.GetService<YesNoDialogService>()!;
+            ConfigService = Locator.Current.GetService<ConfigService>()!;
+
             Sheets.AddRange([
                 new SheetModel() { Id = 1, Title = "Sheet1", IsActive = false},
                 new SheetModel() { Id = 2, Title = "Sheet2", IsActive = false },
@@ -47,12 +49,9 @@ namespace BillInsight.ViewModels
 
         private void InitCommands()
         {
-            SaveConfigSheetCommand = ReactiveCommand.CreateFromTask(async () =>
+            SaveConfigCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                // kiểm tra file cấu hình có chưa
-                // chưa có thì thêm mới
-                // có rồi thì load file cấu hình, nếu load không được thì xóa file và tạo lại với dữ liệu trống
-                
+                await ConfigService.UpdateConfigAsync();
             });
             
             RemoveSheetCommand = ReactiveCommand.CreateFromTask(async () =>
