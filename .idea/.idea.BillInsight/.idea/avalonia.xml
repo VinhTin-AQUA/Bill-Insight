@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="BillInsight/App.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Assets/XAML_Icons/XCircle.xaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/FruitBow.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/InvoiceDetailsItem.axaml" value="BillInsight/BillInsight.csproj" />
