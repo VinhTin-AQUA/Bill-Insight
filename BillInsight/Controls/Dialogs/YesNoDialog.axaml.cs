@@ -6,9 +6,10 @@ namespace BillInsight.Controls
 {
     public partial class YesNoDialog : UserControl
     {
-        public YesNoDialog()
+        public YesNoDialog(string message)
         {
             InitializeComponent();
+            MessageText.Text = message;
         }
     }
 }

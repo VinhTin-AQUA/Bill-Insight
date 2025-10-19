@@ -46,7 +46,7 @@
 
     <!-- Khi disabled -->
     <Style Selector="TextBox:disabled /template/ Border">
-        <Setter Property="Background" Value="Purple"/>
-        <Setter Property="BorderBrush" Value="Yellow"/>
+        <Setter Property="Background" Value="#f1f5f9"/>
+        <Setter Property="BorderBrush" Value="#e2e8f0"/>
     </Style>
 </Styles>

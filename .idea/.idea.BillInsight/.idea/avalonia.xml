@@ -6,6 +6,9 @@
         <entry key="BillInsight/App.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Assets/XAML_Icons/XCircle.xaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/Dialogs/LoadingDialog.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/Dialogs/OneTextDialog.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/Dialogs/YesNoDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/FruitBow.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/InvoiceDetailsItem.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Sidebar.axaml" value="BillInsight/BillInsight.csproj" />
@@ -22,6 +25,9 @@
         <entry key="BillInsight/Views/AddInvoice.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/AddInvoiceView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/BillDetailsView.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/ConfigServiceWindow.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/ConfigWindow.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Views/GoogleSpreadsheetConfigWindow.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/InvoiceDetailsView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/InvoiceImagesView.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Views/MainWindow.axaml" value="BillInsight/BillInsight.csproj" />

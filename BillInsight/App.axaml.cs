@@ -8,8 +8,10 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
 using BillInsight.Bootstraper;
+using BillInsight.Services;
 using BillInsight.ViewModels;
 using BillInsight.Views;
+using Splat;
 
 namespace BillInsight;
 
@@ -34,12 +36,11 @@ public partial class App : Application
             };
             desktop.MainWindow = splashScreenView;
             splashScreenView.Show();
+            var (success, failedService) = await appBootstrapper.InitAsync();
             
-            await appBootstrapper.InitAsync();
-
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(2));
+                // await Task.Delay(TimeSpan.FromSeconds(1));
                 splashScreenViewModel.Message = "Init services";
             }
             catch
@@ -48,19 +49,37 @@ public partial class App : Application
                 return;
             }
             
-            var mainWindow = new MainWindow
+            if (success)
             {
-                DataContext = new MainWindowViewModel(),
-            };
-
-            desktop.MainWindow = mainWindow;
-            mainWindow.Show();
-            splashScreenView.Close();
+                var mainWindow = new MainWindow
+                {
+                    DataContext = new MainWindowViewModel(),
+                };
+    
+                desktop.MainWindow = mainWindow;
+                mainWindow.Show();
+                splashScreenView.Close();
+            }
+            else if (failedService == AppBootstrapper.GoogleSpreadsheetServiceName)
+            {
+                var configServiceWindowViewModel = new GoogleSpreadsheetConfigWindowViewModel();
+                var configServiceWindow = new GoogleSpreadsheetConfigWindow()
+                {
+                    DataContext = configServiceWindowViewModel
+                };
+                desktop.MainWindow = configServiceWindow;
+                configServiceWindow.Show();
+                splashScreenView.Close();
+            }
+            else
+            {
+                splashScreenViewModel.Message = "Init failed";
+                throw new Exception("Init failed");
+            }
         }
         
         base.OnFrameworkInitializationCompleted();
     }
-    
     
     private void RegisterGlobalExceptionHandlers()
     {
@@ -93,6 +112,7 @@ public partial class App : Application
         // Tùy chọn: hiển thị thông báo cho người dùng
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            Console.WriteLine(ex?.Message ?? "Unknown error");
             Dispatcher.UIThread.Post(async () =>
             {
                 var msgBox = new Window

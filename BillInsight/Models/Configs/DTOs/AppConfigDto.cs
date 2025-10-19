@@ -1,19 +1,13 @@
 using BillInsight.Models.SpreadSheetInfos;
-using ReactiveUI;
 
-namespace BillInsight.Models.Configs
+namespace BillInsight.Models.Configs.DTOs
 {
-    public class AppConfig : ReactiveObject
+    public class AppConfigDto
     {
         public string ServiceAccountCredentialFilePath { get; set; } = string.Empty; // đường dẫn file cấu hình
         public SheetModel WorkingSheet { get; set; } = new();
         public string SpreadSheetUrl { get; set; } = string.Empty;// url của sheet
 
-        public string _spreadSheetId = "";
-        public string SpreadSheetId 
-        { 
-            get => _spreadSheetId;
-            set => this.RaiseAndSetIfChanged(ref _spreadSheetId, value); 
-        }
+        public string SpreadSheetId { get; set; } = string.Empty;
     }
 }

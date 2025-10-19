@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogHostAvalonia="using:DialogHostAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BillInsight.Controls.YesNoDialog">
+    
+    <Border>
+        <Grid RowDefinitions="*,Auto" Background="Transparent">
+            <TextBlock x:Name="MessageText"
+                       Foreground="Black"
+                       FontSize="16"
+                       Margin="20"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"/>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,16" Spacing="12">
+                <Button x:Name="YesButton" Width="100" Height="32"
+                        Content="Yes" Background="#4CAF50" Foreground="White"
+                        CornerRadius="8"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}"
+                        CommandParameter="True" />
+                <Button x:Name="NoButton" Width="100" Height="32"
+                        Content="No" Background="#E53935" Foreground="White"
+                        CornerRadius="8"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}"
+                        CommandParameter="False"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

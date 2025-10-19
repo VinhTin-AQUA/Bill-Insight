@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
-using BillInsight.Models.Configs;
+using System.Threading.Tasks;
 using BillInsight.Models.SpreadSheetInfos;
 using BillInsight.Services;
 using DynamicData;
@@ -20,29 +21,24 @@ namespace BillInsight.ViewModels
         }
         
         public ReactiveCommand<Unit, Unit> SaveConfigCommand { get; set; }
-        public ReactiveCommand<Unit, Unit> RemoveSheetCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddSheetCommand { get; set; }
+        public ReactiveCommand<int, Unit> RemoveSheetCommand { get; set; }
 
         public string NewSheetName { get; set; } = string.Empty;
         
         #region services
 
-        private YesNoDialogService YesNoDialogService { get; set; }
+        private DialogService DialogService { get; set; }
         public ConfigService ConfigService { get; set; }
+        public GoogleSpreadsheetService GoogleSpreadsheetService { get; set; }
 
         #endregion
 
         public SpreadSheetInfoViewModel()
         {
-            YesNoDialogService = Locator.Current.GetService<YesNoDialogService>()!;
+            DialogService = Locator.Current.GetService<DialogService>()!;
             ConfigService = Locator.Current.GetService<ConfigService>()!;
-
-            Sheets.AddRange([
-                new SheetModel() { Id = 1, Title = "Sheet1", IsActive = false},
-                new SheetModel() { Id = 2, Title = "Sheet2", IsActive = false },
-                new SheetModel() { Id = 3, Title = "Sheet3", IsActive = true },
-                new SheetModel() { Id = 4, Title = "Sheet4", IsActive = false },
-                new SheetModel() { Id = 5, Title = "Sheet5", IsActive = false },
-            ]);
+            GoogleSpreadsheetService = Locator.Current.GetService<GoogleSpreadsheetService>()!;
 
             InitCommands();
         }
@@ -54,14 +50,63 @@ namespace BillInsight.ViewModels
                 await ConfigService.UpdateConfigAsync();
             });
             
-            RemoveSheetCommand = ReactiveCommand.CreateFromTask(async () =>
+            AddSheetCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                var result = await YesNoDialogService.ShowDialogAsync();
-                if (result is string text)
+                if (string.IsNullOrWhiteSpace(NewSheetName))
                 {
-                    Console.WriteLine($"Người dùng nhập: {text}");
+                    return;
                 }
+
+                await DialogService.RunWithLoadingAsync(async () =>
+                {
+                    var r = await GoogleSpreadsheetService.CreateSheet(NewSheetName);
+                    if (r)
+                    {
+                        Sheets.Add(new()
+                        {
+                            Title = NewSheetName,
+                            IsActive = false,
+                        });
+                    }
+                }, DialogService.MainWindowDialogHostId);
             });
+            
+            RemoveSheetCommand = ReactiveCommand.CreateFromTask<int>(async (id) =>
+            {
+                var result = await DialogService.ShowYesNoDialogAsync(DialogService.MainWindowDialogHostId);
+                if (result == false)
+                {
+                    Console.WriteLine("False");
+                    return;
+                }
+
+                await DialogService.RunWithLoadingAsync(async () =>
+                {
+                    var r = await GoogleSpreadsheetService.RemoveSheet(id);
+                    if (!r)
+                    {
+                        return;
+                    }
+                    var item = Sheets.FirstOrDefault(x => x.Id == id);
+                    if (item == null)
+                    {
+                        return;
+                    }
+                    Sheets.Remove(item);
+                }, DialogService.MainWindowDialogHostId);
+            });
+        }
+
+        public async Task GetListSheets()
+        {
+            // var sheets = await GoogleSpreadsheetService.GetSheets();
+            // Sheets.AddRange(sheets);
+            Sheets.AddRange([
+            new()
+            {
+                IsActive = false,
+                Title = "New Sheet",
+            }]);
         }
     }
 }

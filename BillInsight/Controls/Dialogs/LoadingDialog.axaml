@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BillInsight.Controls.Dialogs.LoadingDialog"
+             Width="250"
+             Height="150"
+            >
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border
+            Width="120"
+            Height="120"
+            CornerRadius="12"
+            Background="Transparent"
+            Opacity="0.95"
+            Padding="16"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                <!-- Spinner -->
+                <ProgressBar
+                    IsIndeterminate="True"
+                    Width="80"
+                    Height="8"
+                    Foreground="#0078D7" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

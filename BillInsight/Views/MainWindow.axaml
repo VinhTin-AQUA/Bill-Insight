@@ -17,7 +17,12 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     
-    <dialogHost:DialogHost CloseOnClickAway="True" Identifier="GlobalDialogHost">
+    <dialogHost:DialogHost CloseOnClickAway="False" 
+                           Background="White"
+                           Identifier="MainWindowDialogHost"
+                           Padding="12"
+                           CornerRadius="16"
+                           Effect="drop-shadow(0 8 16 #00000066)"> 
         <dialogHost:DialogHost.DialogContent>
             <!-- Nội dung dialog mặc định hoặc placeholder -->
         </dialogHost:DialogHost.DialogContent>

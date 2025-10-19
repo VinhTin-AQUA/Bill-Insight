@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="BillInsight.Views.GoogleSpreadsheetConfigWindow"
+        xmlns:vm="using:BillInsight.ViewModels"
+        x:DataType="vm:GoogleSpreadsheetConfigWindowViewModel"
+        Width="500"
+        Height="300"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        Title="ConfigServiceWindow">
+        
+        <!-- <UserControl.DataContext> -->
+        <!--         <vm:ConfigServiceWindowViewModel/> -->
+        <!-- </UserControl.DataContext> -->
+        
+    <dialogHost:DialogHost CloseOnClickAway="False" 
+                           Background="White"
+                           Identifier="GoogleSpreadsheetConfigWindowDialogHost"
+                           Padding="12"
+                           CornerRadius="16"
+                           Effect="drop-shadow(0 8 16 #00000066)"> 
+        <dialogHost:DialogHost.DialogContent>
+            <!-- Nội dung dialog mặc định hoặc placeholder -->
+        </dialogHost:DialogHost.DialogContent>
+    
+        <Border Background="White" CornerRadius="12" Padding="20" 
+                BoxShadow="0 2 8 #00000022">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Spreadsheet" FontSize="20" FontWeight="Bold" Foreground="#2F3640"/>
+            
+                <StackPanel>
+                    <TextBlock Foreground="Black" Text="Spreadsheet URL:" FontWeight="SemiBold" Margin="0 0 0 5"/>
+                    <TextBox Watermark="Spreadsheet URL"  
+                             Margin="0 0 0 10" 
+                             Text="{Binding ConfigService.Config.SpreadSheetUrl, Mode=TwoWay}"
+                             TextChanged="TextBox_OnTextChanged"/>
+                    <TextBlock Foreground="Black" Text="Spreadsheet ID:" FontWeight="SemiBold"  Margin="0 0 0 5"/>
+                    <TextBox Watermark="Spreadsheet ID"  
+                             Margin="0 0 0 10"
+                             Text="{Binding ConfigService.Config.SpreadSheetId, Mode=TwoWay}"
+                             IsEnabled="False"/>
+                    <TextBlock Foreground="Black" Text="Credential File Path:" FontWeight="SemiBold"  Margin="0 0 0 5"/>
+                    <TextBox Watermark="Credential File Path"  Margin="0 0 0 10" Text="{Binding ConfigService.Config.ServiceAccountCredentialFilePath, Mode=TwoWay}" />
+                    <Button Content="Save" 
+                            Classes="normal-button"
+                            HorizontalAlignment="Stretch"
+                            Padding="5"
+                            Margin="0,5,0,0"
+                            Command="{Binding SaveConfigCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </dialogHost:DialogHost>
+</Window>

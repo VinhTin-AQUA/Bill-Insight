@@ -27,6 +27,10 @@
     <Color x:Key="indigo-300">#a5b4fc</Color>
     <Color x:Key="indigo-800">#3730a3</Color>
     
+    <Color x:Key="slate-200">#e2e8f0</Color>
+    
+    
+    
     
     <!-- ✍Font -->
     <!-- <FontFamily x:Key="AppFont">avares://MyApp/Assets/Fonts#Segoe UI</FontFamily> -->

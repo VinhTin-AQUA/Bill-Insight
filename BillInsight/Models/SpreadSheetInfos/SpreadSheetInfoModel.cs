@@ -12,8 +12,16 @@ namespace BillInsight.Models.SpreadSheetInfos
 
     public class SheetModel
     {
-        public int? Id { get; set; } = -1;
+        private static int Index = -1;
+        
+        public int? Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public bool IsActive { get; set; } = false;
+
+        public SheetModel()
+        {
+            Id = Index;
+            Index--;
+        }
     }
 }

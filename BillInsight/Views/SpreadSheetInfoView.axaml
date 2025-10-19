@@ -41,38 +41,36 @@
                     <TextBlock Foreground="Black" 
                                Text="Add new sheet"
                                FontWeight="SemiBold" 
-                               Margin="0 0 0 5"/>
+                               Margin="0 0 0 5" />
                     <TextBox Watermark="Sheet name" Text="{Binding NewSheetName}"  />
                     <Button Content="Add sheet" 
                             Classes="normal-button"
                             HorizontalAlignment="Left"
                             Padding="5"
-                            Margin="0,5,0,0"/>
+                            Margin="0,5,0,0"
+                            Command="{Binding AddSheetCommand}"/>
                 </StackPanel>
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="20"
-                BoxShadow="0 2 8 #00000022">
-            <StackPanel>
+        BoxShadow="0 2 8 #00000022">
+            <Grid RowDefinitions="Auto,*,Auto">
                 <TextBlock Text="Sheets" FontSize="20" FontWeight="Bold"
                            Foreground="#2F3640" Margin="0 0 0 10"/>
 
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Sheets}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="#DDD" BorderThickness="1" Padding="5" CornerRadius="5" Margin="5">
                                     <Grid ColumnDefinitions="Auto,*,Auto" Margin="5,0">
-                                        <!-- Cột 0: RadioButton -->
                                         <RadioButton Grid.Column="0"
                                                      GroupName="Links"
                                                      IsChecked="{Binding IsActive}"
                                                      VerticalAlignment="Center"
-                                                     Margin="5,0"
-                                                     Content=""/>
+                                                     Margin="5,0"/>
 
-                                        <!-- Cột 1: TextBox chiếm toàn bộ phần còn lại -->
                                         <TextBox Grid.Column="1"
                                                  Text="{Binding Title}"
                                                  Margin="5,0"
@@ -80,33 +78,25 @@
                                                  VerticalAlignment="Center"
                                                  HorizontalAlignment="Stretch"/>
 
-                                        <!-- Cột 2: Nút xóa -->
-                                        <StackPanel Grid.Column="2" Spacing="1" Orientation="Horizontal">
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="1">
                                             <Button Classes="normal-button" Width="25" Height="25" Padding="2"
-                                                    Background="Transparent"
-                                                    HorizontalContentAlignment="Center"
+                                                    Background="Transparent" HorizontalContentAlignment="Center"
                                                     VerticalContentAlignment="Center"
                                                     Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}">
-                                                <Viewbox Stretch="Uniform"
-                                                         HorizontalAlignment="Center"
+                                                <Viewbox Stretch="Uniform" HorizontalAlignment="Center"
                                                          VerticalAlignment="Center">
-                                                        <Path Fill="{StaticResource green-400}"
-                                                              Stretch="Uniform"
-                                                              Data="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.414A2 2 0 0 0 19.414 5L17 2.586A2 2 0 0 0 15.586 2zm0 2h9.586L18 6.414V20H6zm10.238 6.793a1 1 0 1 0-1.414-1.414l-4.242 4.243-1.415-1.415a1 1 0 0 0-1.414 1.414l2.05 2.051a1.1 1.1 0 0 0 1.556 0l4.88-4.879Z"/>
+                                                    <Path Fill="{StaticResource green-400}" Stretch="Uniform"
+                                                          Data="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.414A2 2 0 0 0 19.414 5L17 2.586A2 2 0 0 0 15.586 2zm0 2h9.586L18 6.414V20H6zm10.238 6.793a1 1 0 1 0-1.414-1.414l-4.242 4.243-1.415-1.415a1 1 0 0 0-1.414 1.414l2.05 2.051a1.1 1.1 0 0 0 1.556 0l4.88-4.879Z" />
                                                 </Viewbox>
                                             </Button>
-                                            
                                             <Button Classes="remove-button" Width="25" Height="25"
-                                                    Background="Transparent"
-                                                    HorizontalContentAlignment="Center"
+                                                    Background="Transparent" HorizontalContentAlignment="Center"
                                                     VerticalContentAlignment="Center"
-                                                    Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}">
-                                                <Viewbox Stretch="Uniform"
-                                                         HorizontalAlignment="Center"
+                                                    Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}"
+                                                    CommandParameter="{Binding Id}">
+                                                <Viewbox Stretch="Uniform" HorizontalAlignment="Center"
                                                          VerticalAlignment="Center">
-                                                    <Path Fill="red"
-                                                          Stretch="Uniform"
-                                                          HorizontalAlignment="Center"
+                                                    <Path Fill="red" Stretch="Uniform" HorizontalAlignment="Center"
                                                           VerticalAlignment="Center"
                                                           Data="M6.21967 7.28033C5.92678 6.98744 5.92678 6.51256 6.21967 6.21967C6.51256 5.92678 6.98744 5.92678 7.28033 6.21967L11.999 10.9384L16.7176 6.2198C17.0105 5.92691 17.4854 5.92691 17.7782 6.2198C18.0711 6.51269 18.0711 6.98757 17.7782 7.28046L13.0597 11.999L17.7782 16.7176C18.0711 17.0105 18.0711 17.4854 17.7782 17.7782C17.4854 18.0711 17.0105 18.0711 16.7176 17.7782L11.999 13.0597L7.28033 17.7784C6.98744 18.0713 6.51256 18.0713 6.21967 17.7784C5.92678 17.4855 5.92678 17.0106 6.21967 16.7177L10.9384 11.999L6.21967 7.28033Z" />
                                                 </Viewbox>
@@ -119,12 +109,14 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Content="Save working sheet" 
+                <Button Grid.Row="2"
+                        Content="Save working sheet" 
                         Classes="normal-button"
                         HorizontalContentAlignment="Center"
                         Padding="10" 
                         Margin="0 15 0 0" />
-            </StackPanel>
+            </Grid>
         </Border>
+
     </Grid>
 </UserControl>

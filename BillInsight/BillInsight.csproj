@@ -37,4 +37,11 @@
     <ItemGroup>
       <Folder Include="Assets\XAML_Icons\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Controls\Dialogs\YesNoDialog.axaml.cs">
+        <DependentUpon>YesNoDialog.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>
