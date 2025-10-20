@@ -7,6 +7,7 @@
         <entry key="BillInsight/Assets/XAML_Icons/XCircle.xaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Dialogs/LoadingDialog.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/Dialogs/MessageDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Dialogs/OneTextDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Dialogs/YesNoDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/FruitBow.axaml" value="BillInsight/BillInsight.csproj" />

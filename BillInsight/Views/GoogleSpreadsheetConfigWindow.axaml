@@ -17,12 +17,11 @@
         <!--         <vm:ConfigServiceWindowViewModel/> -->
         <!-- </UserControl.DataContext> -->
         
-    <dialogHost:DialogHost CloseOnClickAway="False" 
-                           Background="White"
-                           Identifier="GoogleSpreadsheetConfigWindowDialogHost"
-                           Padding="12"
-                           CornerRadius="16"
-                           Effect="drop-shadow(0 8 16 #00000066)"> 
+    <dialogHost:DialogHost Identifier="GoogleSpreadsheetConfigWindowDialogHost"
+                           CloseOnClickAway="False"
+                           Background="Transparent"
+                           Padding="0"
+                           CornerRadius="0" > 
         <dialogHost:DialogHost.DialogContent>
             <!-- Nội dung dialog mặc định hoặc placeholder -->
         </dialogHost:DialogHost.DialogContent>

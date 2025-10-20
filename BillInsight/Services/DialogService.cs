@@ -11,9 +11,9 @@ namespace BillInsight.Services
         public const string MainWindowDialogHostId = "MainWindowDialogHost";
         public const string GoogleSpreadsheetConfigWindowDialogHostId = "GoogleSpreadsheetConfigWindowDialogHost";
 
-        public async Task<bool> ShowYesNoDialogAsync(string hostId)
+        public async Task<bool> ShowYesNoDialogAsync(string hostId, string message)
         {
-            var content = new YesNoDialog("Bạn có muốn xóa");
+            var content = new YesNoDialog(message);
             var r = await DialogHost.Show(content, hostId);
 
             if (r == null)
@@ -29,6 +29,12 @@ namespace BillInsight.Services
         {
             var content = new LoadingDialog();
             await DialogHost.Show(content, hostId);
+        }
+        
+        public async Task ShowMessageDialogAsync(string hostId, string title, string message, bool isSuccess)
+        {
+            var content = new MessageDialog(title, message, isSuccess);
+            _ = await DialogHost.Show(content, hostId);
         }
         
         public void CloseDialog(string hostId, object? result = null)

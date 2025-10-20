@@ -38,11 +38,11 @@ namespace BillInsight.ViewModels
             set => this.RaiseAndSetIfChanged(ref _TToan, value);
         }
         
-        private AddInvoiceModel _AddInvoiceModel = new();
-        public AddInvoiceModel AddInvoiceModel
+        private InvoiceModel invoiceModel = new();
+        public InvoiceModel InvoiceModel
         {
-            get => _AddInvoiceModel;
-            set => this.RaiseAndSetIfChanged(ref _AddInvoiceModel, value);
+            get => invoiceModel;
+            set => this.RaiseAndSetIfChanged(ref invoiceModel, value);
         }
         
         #endregion
@@ -68,13 +68,17 @@ namespace BillInsight.ViewModels
 
         public BachHoaXanhService BachHoaXanhService { get; set; }
         public GoogleSpreadsheetService GoogleSpreadsheetService { get; set; }
-
+        public ConfigService ConfigService { get; set; }
+        public DialogService DialogService { get; set; }
+        
         #endregion
         
         public AddInvoiceViewModel()
         {
             BachHoaXanhService = Locator.Current.GetService<BachHoaXanhService>()!;
             GoogleSpreadsheetService = Locator.Current.GetService<GoogleSpreadsheetService>()!;
+            ConfigService = Locator.Current.GetService<ConfigService>()!;
+            DialogService = Locator.Current.GetService<DialogService>()!;
             InitCommands();
         }
         
@@ -85,7 +89,7 @@ namespace BillInsight.ViewModels
                 cookieModel = await BachHoaXanhService.GetCaptchaAndASPSession();
                 if (cookieModel != null)
                 {
-                    AddInvoiceModel.CaptchaPath = cookieModel.CaptchaPath;
+                    InvoiceModel.CaptchaPath = cookieModel.CaptchaPath;
                 }
             });
 
@@ -132,48 +136,27 @@ namespace BillInsight.ViewModels
                 
             SaveInvoiceCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                // foreach (var item in HHDVuList)
-                // {
-                //     Console.WriteLine($"{item.THHDVu}: {item.ThTienSauLaiSuat}");
-                // }
-
-                // var r = await GoogleSpreadsheetService.ReadDataFromCell<string>("sheet1","B2");
-                // Console.WriteLine(r);
-                
-                // var r = await GoogleSpreadsheetService.WriteDataToCell("sheet1","E1", 123);
-                // Console.WriteLine(r);
-                
-                // var r = await GoogleSpreadsheetService.GetDataRow<string>("sheet1","A1:C1");
-                // r.ForEach(x =>
-                // {
-                //     Console.WriteLine(x);
-                // });
-                
-                
-                // var r = await GoogleSpreadsheetService.GetDataColumn<string>("sheet1","B1:B13");
-                // r.ForEach(x =>
-                // {
-                //     Console.WriteLine(x);
-                // });
-                
-                // var r = await GoogleSpreadsheetService.GetDataMatrix<string>("sheet1","A1:C3");
-                // foreach (var item in r)
-                // {
-                //     foreach (var d in item)
-                //     {
-                //         Console.WriteLine(d);
-                //     }
-                // }
-
-                // var r = await GoogleSpreadsheetService.CreateSheet("New Sheet");
-                // Console.WriteLine(r);
-                
-                var r = await GoogleSpreadsheetService.GetSheets();
-                foreach (var item in r)
+                int total = HHDVuList.Count;
+                if (total == 0)
                 {
-                    Console.WriteLine($"{item.Id} : {item.Title}");
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Notice", "There are no invoices to add.", true);
+                    return;
+                }
+                
+                List<IList<object>> values = [];
+                values.Add(new List<object>() {DateTime.Now.ToString("dd/MM/yyyy"), HHDVuList[0].THHDVu, "", HHDVuList[0].ThTienSauLaiSuat });
+                
+                for (int i = 1; i < total; i++)
+                {
+                    string date = "-";
+                    string itemName = HHDVuList[i].THHDVu;
+                    string cash  = "";
+                    var bank = HHDVuList[i].ThTienSauLaiSuat;
+                    values.Add(new List<object> { date, itemName, cash, bank });
                 }
 
+                var r = await GoogleSpreadsheetService.Append(ConfigService.Config.WorkingSheet.Title, "A2", values);
+                Console.WriteLine($"Result: {r}");
                 // FolderHelpers.CleanTempFolder();
             });
         }

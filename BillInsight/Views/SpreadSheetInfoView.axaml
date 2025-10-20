@@ -53,8 +53,11 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="20"
-        BoxShadow="0 2 8 #00000022">
+        <Border Grid.Column="1" 
+                Background="White" 
+                CornerRadius="12" 
+                Padding="20"
+                BoxShadow="0 2 8 #00000022">
             <Grid RowDefinitions="Auto,*,Auto">
                 <TextBlock Text="Sheets" FontSize="20" FontWeight="Bold"
                            Foreground="#2F3640" Margin="0 0 0 10"/>
@@ -69,7 +72,7 @@
                                                      GroupName="Links"
                                                      IsChecked="{Binding IsActive}"
                                                      VerticalAlignment="Center"
-                                                     Margin="5,0"/>
+                                                     Margin="5,0" />
 
                                         <TextBox Grid.Column="1"
                                                  Text="{Binding Title}"
@@ -82,7 +85,8 @@
                                             <Button Classes="normal-button" Width="25" Height="25" Padding="2"
                                                     Background="Transparent" HorizontalContentAlignment="Center"
                                                     VerticalContentAlignment="Center"
-                                                    Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).RemoveSheetCommand}">
+                                                    Command="{Binding $parent[ItemsControl].((vm:SpreadSheetInfoViewModel)DataContext).UpdateSheetCommand}"
+                                                    CommandParameter="{Binding .}">
                                                 <Viewbox Stretch="Uniform" HorizontalAlignment="Center"
                                                          VerticalAlignment="Center">
                                                     <Path Fill="{StaticResource green-400}" Stretch="Uniform"
@@ -114,6 +118,7 @@
                         Classes="normal-button"
                         HorizontalContentAlignment="Center"
                         Padding="10" 
+                        Command="{Binding SaveWorkingSheetCommand}"
                         Margin="0 15 0 0" />
             </Grid>
         </Border>

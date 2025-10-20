@@ -289,7 +289,7 @@ namespace BillInsight.Services
             return sheets;
         }
 
-        public async Task<bool> CreateSheet(string sheetName)
+        public async Task<SheetModel?> CreateSheet(string sheetName)
         {
             CheckInitialService();
             
@@ -311,8 +311,21 @@ namespace BillInsight.Services
             
             var request = service.Spreadsheets.BatchUpdate(batchUpdateRequest, SpreadsheetId);
             var response = await request.ExecuteAsync();
+
+            var SheetId = response.Replies[0].AddSheet.Properties.SheetId;
+            var Title = response.Replies[0].AddSheet.Properties.Title;
+            
             bool added = response.Replies != null && response.Replies.Count > 0 && response.Replies[0].AddSheet != null;
-            return added;
+            if (!added)
+            {
+                return null;
+            }
+
+            return new()
+            {
+                Title = Title,
+                Id = SheetId
+            };
         }
 
         public async Task<bool> RemoveSheet(int sheetId)
@@ -338,6 +351,44 @@ namespace BillInsight.Services
             return removed;
         }
 
+        public async Task<SheetModel?> UpdateSheet(SheetModel sheet)
+        {
+            CheckInitialService();
+            
+            // Tạo request cập nhật tên sheet (KHÔNG phải thêm mới)
+            var updateSheetRequest = new UpdateSheetPropertiesRequest
+            {
+                Properties = new SheetProperties
+                {
+                    SheetId = sheet.Id,   // ID của sheet cần đổi tên
+                    Title = sheet.Title   // Tên mới
+                },
+                Fields = "title"  // Chỉ cập nhật trường 'title'
+            };
+
+            var batchUpdateRequest = new BatchUpdateSpreadsheetRequest
+            {
+                Requests = new[]
+                {
+                    new Request { UpdateSheetProperties = updateSheetRequest }
+                }
+            };
+
+            var request = service.Spreadsheets.BatchUpdate(batchUpdateRequest, SpreadsheetId);
+            var response = await request.ExecuteAsync();
+            bool updated = response.Replies != null && response.Replies.Count > 0;
+            if (!updated)
+            {
+                return null;
+            }
+
+            return new SheetModel
+            {
+                Id = sheet.Id,
+                Title = sheet.Title
+            };
+        }
+        
         #region private methods
 
         private void CheckInitialService()

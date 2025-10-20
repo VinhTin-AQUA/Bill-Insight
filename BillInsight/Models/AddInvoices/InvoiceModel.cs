@@ -8,7 +8,7 @@ using ReactiveUI;
 
 namespace BillInsight.Models.AddInvoices
 {
-    public class AddInvoiceModel : ReactiveObject
+    public class InvoiceModel : ReactiveObject
     {
         private string _MaHD = "";
         public string MaHD

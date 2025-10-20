@@ -23,6 +23,8 @@ namespace BillInsight.ViewModels
         public ReactiveCommand<Unit, Unit> SaveConfigCommand { get; set; }
         public ReactiveCommand<Unit, Unit> AddSheetCommand { get; set; }
         public ReactiveCommand<int, Unit> RemoveSheetCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> SaveWorkingSheetCommand { get; set; }
+        public ReactiveCommand<SheetModel, Unit> UpdateSheetCommand { get; set; }
 
         public string NewSheetName { get; set; } = string.Empty;
         
@@ -48,6 +50,8 @@ namespace BillInsight.ViewModels
             SaveConfigCommand = ReactiveCommand.CreateFromTask(async () =>
             {
                 await ConfigService.UpdateConfigAsync();
+                await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success",
+                    "Cập nhật thành công.", true);
             });
             
             AddSheetCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -57,29 +61,55 @@ namespace BillInsight.ViewModels
                     return;
                 }
 
+                SheetModel? sheet = null;
                 await DialogService.RunWithLoadingAsync(async () =>
                 {
-                    var r = await GoogleSpreadsheetService.CreateSheet(NewSheetName);
-                    if (r)
+                    sheet = await GoogleSpreadsheetService.CreateSheet(NewSheetName);
+                    if (sheet != null)
                     {
                         Sheets.Add(new()
                         {
-                            Title = NewSheetName,
+                            Title = sheet.Title,
                             IsActive = false,
+                            Id = sheet.Id
                         });
                     }
                 }, DialogService.MainWindowDialogHostId);
+
+                if (sheet == null)
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Error",
+                        "Thêm sheet thất bại.", false);
+                }
+                else
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success",
+                        "Thêm thành công.", true);
+                }
             });
             
             RemoveSheetCommand = ReactiveCommand.CreateFromTask<int>(async (id) =>
             {
-                var result = await DialogService.ShowYesNoDialogAsync(DialogService.MainWindowDialogHostId);
+                var result = await DialogService.ShowYesNoDialogAsync(DialogService.MainWindowDialogHostId, "Bạn có muốn xóa");
                 if (result == false)
                 {
                     Console.WriteLine("False");
                     return;
                 }
+                
+                var item = Sheets.FirstOrDefault(x => x.Id == id);
+                if (item == null)
+                {
+                    return;
+                }
 
+                if (item.IsActive)
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Error",
+                        "Sheet này đang làm việc.", false);
+                    return;
+                }
+                
                 await DialogService.RunWithLoadingAsync(async () =>
                 {
                     var r = await GoogleSpreadsheetService.RemoveSheet(id);
@@ -87,26 +117,70 @@ namespace BillInsight.ViewModels
                     {
                         return;
                     }
-                    var item = Sheets.FirstOrDefault(x => x.Id == id);
-                    if (item == null)
-                    {
-                        return;
-                    }
                     Sheets.Remove(item);
                 }, DialogService.MainWindowDialogHostId);
+            });
+            
+            SaveWorkingSheetCommand = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var model = Sheets.FirstOrDefault(x => x.IsActive);
+                if (model == null)
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Error",
+                        "Không tìm thấy sheet.", false);
+                }
+                else
+                {
+                    ConfigService.Config.WorkingSheet.Title = model.Title;
+                    ConfigService.Config.WorkingSheet.Id = model.Id;
+                    ConfigService.Config.WorkingSheet.IsActive = true;
+                    await ConfigService.UpdateConfigAsync();
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success",
+                        "Cập nhật thành công.", true);
+                }
+            });
+            
+            UpdateSheetCommand = ReactiveCommand.CreateFromTask<SheetModel>(async (model) =>
+            {
+                SheetModel? sheet = null;
+                await DialogService.RunWithLoadingAsync(async () =>
+                {
+                    sheet = await GoogleSpreadsheetService.UpdateSheet(model);
+                }, DialogService.MainWindowDialogHostId);
+
+                if (sheet == null)
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Error",
+                        "Cập nhật sheet thất bại.", false);
+                }
+                else
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success",
+                        "Cập nhật thành công.", true);
+                }
             });
         }
 
         public async Task GetListSheets()
         {
-            // var sheets = await GoogleSpreadsheetService.GetSheets();
-            // Sheets.AddRange(sheets);
-            Sheets.AddRange([
-            new()
+            await DialogService.RunWithLoadingAsync(async () =>
             {
-                IsActive = false,
-                Title = "New Sheet",
-            }]);
+                var sheets = await GoogleSpreadsheetService.GetSheets();
+                
+                var model = sheets.FirstOrDefault(x => x.Id == ConfigService.Config.WorkingSheet.Id);
+                if (model != null)
+                {
+                    model.IsActive = true;
+                }
+                Sheets.AddRange(sheets);
+            }, DialogService.MainWindowDialogHostId);
+            
+            // Sheets.AddRange([
+            // new()
+            // {
+            //     IsActive = false,
+            //     Title = "New Sheet",
+            // }]);
         }
     }
 }

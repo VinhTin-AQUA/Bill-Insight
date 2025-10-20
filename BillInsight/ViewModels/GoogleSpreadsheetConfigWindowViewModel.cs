@@ -25,13 +25,21 @@ namespace BillInsight.ViewModels
             
             SaveConfigCommand = ReactiveCommand.CreateFromTask(async () =>
             {
+                bool check = false;
                 await DialogService.RunWithLoadingAsync(async () =>
                 {
                     await ConfigService.UpdateConfigAsync();
-                    GoogleSpreadsheetService.Init(ConfigService.Config.ServiceAccountCredentialFilePath, ConfigService.Config.SpreadSheetId);
+                    check = GoogleSpreadsheetService.Init(ConfigService.Config.ServiceAccountCredentialFilePath, ConfigService.Config.SpreadSheetId);
                 }, DialogService.GoogleSpreadsheetConfigWindowDialogHostId);
                 
-                ConfigCompleted?.Invoke();
+                if (check)
+                {
+                    ConfigCompleted?.Invoke();
+                }
+                else
+                {
+                    await DialogService.ShowMessageDialogAsync(DialogService.GoogleSpreadsheetConfigWindowDialogHostId, "Error","Khởi tạo dịch vụ thất bại", false);
+                }
             });
         }
     }

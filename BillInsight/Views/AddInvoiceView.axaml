@@ -222,7 +222,7 @@
                                 Padding="5"
                                 HorizontalAlignment="Center">
                             <Image
-                                Source="{Binding AddInvoiceModel.CaptchaPath, Converter={StaticResource ImagePathToBitmapConverter}}"
+                                Source="{Binding InvoiceModel.CaptchaPath, Converter={StaticResource ImagePathToBitmapConverter}}"
                                 Width="280" Height="100"
                                 Stretch="Uniform"
                                 HorizontalAlignment="Center" />
@@ -233,7 +233,7 @@
                             <TextBlock Text="Nhập Captcha"
                                        FontSize="16"
                                        Foreground="#333" />
-                            <TextBox Text="{Binding AddInvoiceModel.CaptchaCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding InvoiceModel.CaptchaCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                         
                         <!-- nhap CT va ma HD -->
@@ -242,7 +242,7 @@
                                 <TextBlock Text="Nhập mã hóa đơn"
                                            FontSize="16"
                                            Foreground="#333" />
-                                <TextBox Margin="0,0,0,5" Text="{Binding AddInvoiceModel.MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Margin="0,0,0,5" Text="{Binding InvoiceModel.MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
 
                             
@@ -250,7 +250,7 @@
                                 <TextBlock Text="Nhập mã CT"
                                            FontSize="16"
                                            Foreground="#333" />
-                                <TextBox Margin="0,0,0,5" Text="{Binding AddInvoiceModel.MaCT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox Margin="0,0,0,5" Text="{Binding InvoiceModel.MaCT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Grid>
                         
