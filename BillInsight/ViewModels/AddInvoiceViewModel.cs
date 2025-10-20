@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using BillInsight.Helpers;
 using BillInsight.Models.AddInvoices;
 using BillInsight.Services;
 using ReactiveUI;
 using Splat;
-using System.Globalization;
 using System.Linq;
 
 namespace BillInsight.ViewModels
@@ -29,6 +27,13 @@ namespace BillInsight.ViewModels
         {
             get => _hhdVuList;
             set => this.RaiseAndSetIfChanged(ref _hhdVuList, value);
+        }
+        
+        private ObservableCollection<HHDVu> _hhdVuByCash= new();
+        public ObservableCollection<HHDVu> HHDVuByCash
+        {
+            get => _hhdVuByCash;
+            set => this.RaiseAndSetIfChanged(ref _hhdVuByCash, value);
         }
         
         private TToan _TToan = new();
@@ -54,7 +59,9 @@ namespace BillInsight.ViewModels
         public ReactiveCommand<Unit, Unit> SendAPICommand { get; set; }
         public ReactiveCommand<Unit, Unit> SaveInvoiceCommand { get; set; }
         public ReactiveCommand<Unit, Unit> AddInvoiceDetailCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddInvoiceByCashDetailCommand { get; set; }
         public ReactiveCommand<string, Unit> RemoveInvoiceDetailCommand { get; set; }
+        public ReactiveCommand<string, Unit> RemoveInvoiceByCashDetailCommand { get; set; }
 
         #endregion
         
@@ -123,6 +130,11 @@ namespace BillInsight.ViewModels
             {
                 HHDVuList.Add(new HHDVu());
             });
+            
+            AddInvoiceByCashDetailCommand = ReactiveCommand.Create(() =>
+            {
+                HHDVuByCash.Add(new HHDVu());
+            });
 
             RemoveInvoiceDetailCommand = ReactiveCommand.Create<string>((id) =>
             {
@@ -133,34 +145,53 @@ namespace BillInsight.ViewModels
                 }
                 HHDVuList.Remove(item);
             });
+            
+            RemoveInvoiceByCashDetailCommand = ReactiveCommand.Create<string>((id) =>
+            {
+                var item = HHDVuByCash.FirstOrDefault(x => x.Id == id);
+                if (item == null)
+                {
+                    return;
+                }
+                HHDVuByCash.Remove(item);
+            });
                 
             SaveInvoiceCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                int total = HHDVuList.Count;
+                var totalItems = HHDVuList.Concat(HHDVuByCash).ToList();
+                int total = totalItems.Count;
+                
                 if (total == 0)
                 {
-                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Notice", "There are no invoices to add.", true);
+                    await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Notice", "There are no invoices to add.", false);
                     return;
                 }
                 
                 List<IList<object>> values = [];
-                values.Add(new List<object>() {DateTime.Now.ToString("dd/MM/yyyy"), HHDVuList[0].THHDVu, "", HHDVuList[0].ThTienSauLaiSuat });
+                values.Add(new List<object>() 
+                    {
+                        DateTime.Now.ToString("dd/MM/yyyy"), 
+                        totalItems[0].THHDVu.Trim(), 
+                        totalItems[0].Cash.Trim(), 
+                        totalItems[0].ThTienSauLaiSuat == 0 ? "" : totalItems[0].ThTienSauLaiSuat
+                    }
+                );
                 
                 for (int i = 1; i < total; i++)
                 {
                     string date = "-";
-                    string itemName = HHDVuList[i].THHDVu;
-                    string cash  = "";
-                    var bank = HHDVuList[i].ThTienSauLaiSuat;
+                    string itemName = totalItems[i].THHDVu.Trim();
+                    string cash  = totalItems[i].Cash;
+                    var bank = totalItems[i].ThTienSauLaiSuat == 0 ? "" : $"{totalItems[i].ThTienSauLaiSuat}";
                     values.Add(new List<object> { date, itemName, cash, bank });
                 }
-
+                
                 var r = await GoogleSpreadsheetService.Append(ConfigService.Config.WorkingSheet.Title, "A2", values);
                 Console.WriteLine($"Result: {r}");
                 // FolderHelpers.CleanTempFolder();
+                
+                await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success", "Cập nhật thành công.", true);
             });
         }
-        
-
     }
 }

@@ -157,6 +157,8 @@ namespace BillInsight.ViewModels
                 {
                     await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success",
                         "Cập nhật thành công.", true);
+                    ConfigService.Config.WorkingSheet.Title = model.Title;
+                    await ConfigService.UpdateConfigAsync();
                 }
             });
         }

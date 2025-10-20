@@ -165,6 +165,13 @@ namespace BillInsight.Models.AddInvoices
             get => _ThTienSauLaiSuat;
             set => this.RaiseAndSetIfChanged(ref _ThTienSauLaiSuat, value);
         }
+        
+        private string _Cash = "";
+        public string Cash
+        {
+            get => _Cash;
+            set => this.RaiseAndSetIfChanged(ref _Cash, value);
+        }
 
         public HHDVu(string mHHDVu, string tHHDVu, string dVTinh, int sLuong, decimal dGia, decimal thTien, string tSuat)
         {
