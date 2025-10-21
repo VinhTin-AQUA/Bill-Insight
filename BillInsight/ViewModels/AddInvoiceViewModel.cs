@@ -49,6 +49,13 @@ namespace BillInsight.ViewModels
             get => invoiceModel;
             set => this.RaiseAndSetIfChanged(ref invoiceModel, value);
         }
+
+        private DateTime _invoiceDate = DateTime.Now;
+        public DateTime InvoiceDate
+        {
+            get => _invoiceDate;
+            set => this.RaiseAndSetIfChanged(ref _invoiceDate, value);
+        }
         
         #endregion
 
@@ -170,10 +177,10 @@ namespace BillInsight.ViewModels
                 List<IList<object>> values = [];
                 values.Add(new List<object>() 
                     {
-                        DateTime.Now.ToString("dd/MM/yyyy"), 
+                        InvoiceDate.ToString("dd/MM/yyyy"), 
                         totalItems[0].THHDVu.Trim(), 
-                        totalItems[0].Cash.Trim(), 
-                        totalItems[0].ThTienSauLaiSuat == 0 ? "" : totalItems[0].ThTienSauLaiSuat
+                        totalItems[0].Cash.Trim() == "" ? "0" : totalItems[0].Cash.Trim(), 
+                        totalItems[0].ThTienSauLaiSuat == 0 ? "0" : totalItems[0].ThTienSauLaiSuat
                     }
                 );
                 
@@ -181,8 +188,8 @@ namespace BillInsight.ViewModels
                 {
                     string date = "-";
                     string itemName = totalItems[i].THHDVu.Trim();
-                    string cash  = totalItems[i].Cash;
-                    var bank = totalItems[i].ThTienSauLaiSuat == 0 ? "" : $"{totalItems[i].ThTienSauLaiSuat}";
+                    string cash  = totalItems[i].Cash.Trim() == "" ? "0" : totalItems[i].Cash.Trim();
+                    var bank = totalItems[i].ThTienSauLaiSuat == 0 ? "0" : $"{totalItems[i].ThTienSauLaiSuat}";
                     values.Add(new List<object> { date, itemName, cash, bank });
                 }
                 

@@ -162,7 +162,7 @@ namespace BillInsight.Services
             }
         }
         
-        public async Task<List<List<T>>> GetDataMatrix<T>(string sheetName, string rangeReference)
+        public async Task<List<List<T>>> GetDataMatrix<T>(string sheetName, string rangeReference, bool skipHeader = false)
         {
             CheckInitialService();
             
@@ -175,6 +175,11 @@ namespace BillInsight.Services
             {
                 return result; // trả về danh sách rỗng
             }
+            
+            // Nếu bỏ header thì bỏ qua hàng đầu tiên
+            if (skipHeader && values.Count > 1)
+                values = values.Skip(1).ToList();
+            
             foreach (var row in values)
             {
                 var rowList = new List<T>();

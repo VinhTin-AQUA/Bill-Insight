@@ -10,22 +10,13 @@ namespace BillInsight.Controls
     {
         #region properties
 
-        public static readonly StyledProperty<List<ProductItem>> ProductsProperty =
-            AvaloniaProperty.Register<InvoiceDetailsItem, List<ProductItem>>(nameof(Products), []);
+        public static readonly StyledProperty<List<InvoiceItem>> ProductsProperty =
+            AvaloniaProperty.Register<InvoiceDetailsItem, List<InvoiceItem>>(nameof(Products), []);
 
-        public List<ProductItem> Products
+        public List<InvoiceItem> Products
         {
             get => GetValue(ProductsProperty);
             set => SetValue(ProductsProperty, value);
-        }
-
-        public static readonly StyledProperty<DateTime> DatePurchasedProperty =
-            AvaloniaProperty.Register<InvoiceDetailsItem, DateTime>(nameof(DatePurchased), DateTime.MinValue);
-
-        public DateTime DatePurchased
-        {
-            get => GetValue(DatePurchasedProperty);
-            set => SetValue(DatePurchasedProperty, value);
         }
         
         #endregion

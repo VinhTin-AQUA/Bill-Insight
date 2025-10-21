@@ -6,59 +6,55 @@
              xmlns:local="using:BillInsight.Controls"
              xmlns:model="using:BillInsight.Models.InvoiceDetails"
              x:Class="BillInsight.Controls.InvoiceDetailsItem">
-    <Border
-        CornerRadius="8"
-        BorderThickness="1"
-        BorderBrush="#DDDDDD"
-        Background="#FFFFFF"
-        Padding="12"
-        Margin="8"
-        BoxShadow="0 2 8 #33000000">
+    <Border>
+        <ItemsControl ItemsSource="{Binding Products, RelativeSource={RelativeSource AncestorType=local:InvoiceDetailsItem}}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Spacing="6" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-        <Grid RowDefinitions="Auto,Auto" RowSpacing="8">
-            <!-- Ngày mua -->
-            <TextBlock Grid.Row="0"
-                       Text="{Binding DatePurchased, StringFormat='{}{0:dd/MM/yyyy}', RelativeSource={RelativeSource AncestorType=local:InvoiceDetailsItem}}"
-                       FontWeight="SemiBold"
-                       FontSize="20"
-                       Foreground="#333333"
-                       HorizontalAlignment="Left" />
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="model:InvoiceItem">
+                    <Border Background="#FFFFFF"
+                            CornerRadius="6"
+                            Padding="8"
+                            BorderBrush="#DDD"
+                            BorderThickness="1">
+                        <!-- Chia 3 cột đều nhau -->
+                        <Grid ColumnDefinitions="1*,1*,1*" ColumnSpacing="8" VerticalAlignment="Center">
+                            
+                            <!-- Tên sản phẩm -->
+                            <TextBlock Text="{Binding ItemName}"
+                                       Foreground="#222"
+                                       FontSize="14"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
 
-            <!-- Danh sách sản phẩm -->
-            <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding Products, RelativeSource={RelativeSource AncestorType=local:InvoiceDetailsItem}}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" Spacing="4" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="model:ProductItem">
-                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="12">
-                            <TextBlock Text="{Binding ProductName}"
-                                       Foreground="#222222"
-                                       FontSize="20"
-                                       VerticalAlignment="Center" />
-
-                            <TextBlock Text="{Binding ProductPrice, StringFormat='{}{0:C}'}"
+                            <!-- Tiền mặt -->
+                            <TextBlock Text="{Binding Cash, StringFormat='{}{0:C}'}"
                                        Grid.Column="1"
-                                       Foreground="#444444"
-                                       FontSize="20"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center" />
-
-                            <TextBlock Text="{Binding PaymentMethod}"
-                                       Grid.Column="2"
-                                       Foreground="#666666"
-                                       FontSize="16"
+                                       Foreground="#555"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" />
+
+                            <!-- Ngân hàng -->
+                            <TextBlock Text="{Binding Bank}"
+                                       Grid.Column="2"
+                                       Foreground="#555"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
                         </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Border>
 
 </UserControl>

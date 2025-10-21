@@ -6,6 +6,7 @@
         <entry key="BillInsight/App.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Assets/XAML_Icons/XCircle.xaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/AAA.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Controls/DateTimePicker.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Dialogs/LoadingDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Dialogs/MessageDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Controls/Dialogs/OneTextDialog.axaml" value="BillInsight/BillInsight.csproj" />
@@ -17,6 +18,7 @@
         <entry key="BillInsight/Controls/YesNoDialog.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/ButtonStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/ComboBoxStyles.axaml" value="BillInsight/BillInsight.csproj" />
+        <entry key="BillInsight/Styles/DatePickerStyles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SidebarButton.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/Styles.axaml" value="BillInsight/BillInsight.csproj" />
         <entry key="BillInsight/Styles/SvgStyle.axaml" value="BillInsight/BillInsight.csproj" />

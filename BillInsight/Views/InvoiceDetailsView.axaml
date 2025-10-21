@@ -14,19 +14,42 @@
     
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         
-        <ItemsControl ItemsSource="{Binding Products}">
+        <ItemsControl ItemsSource="{Binding InvoiceDetails}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" />
+                    <StackPanel Orientation="Vertical" Spacing="12" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                   <controls:InvoiceDetailsItem DatePurchased="{Binding DatePurchased}" Products="{Binding Products}" />
+                    <Border CornerRadius="10"
+                            BorderThickness="1"
+                            BorderBrush="#E0E0E0"
+                            Background="#FFFFFF"
+                            Padding="16"
+                            Margin="8"
+                            BoxShadow="0 2 8 #22000000">
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="Ngày:" 
+                                           Foreground="#666"
+                                           FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding DatePurchased}"
+                                           Foreground="#222"
+                                           FontWeight="Medium" />
+                            </StackPanel>
+
+                            <Separator Margin="0,8,0,8" Opacity="0.4" />
+
+                            <controls:InvoiceDetailsItem Products="{Binding Items}" />
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
       
     </ScrollViewer>
 </UserControl>
