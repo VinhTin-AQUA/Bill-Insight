@@ -177,7 +177,7 @@ namespace BillInsight.Services
             }
             
             // Nếu bỏ header thì bỏ qua hàng đầu tiên
-            if (skipHeader && values.Count > 1)
+            if (skipHeader)
                 values = values.Skip(1).ToList();
             
             foreach (var row in values)

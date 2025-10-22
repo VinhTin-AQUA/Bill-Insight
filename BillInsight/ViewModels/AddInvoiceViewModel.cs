@@ -7,6 +7,7 @@ using BillInsight.Services;
 using ReactiveUI;
 using Splat;
 using System.Linq;
+using BillInsight.Helpers;
 
 namespace BillInsight.ViewModels
 {
@@ -100,37 +101,40 @@ namespace BillInsight.ViewModels
         {
             GetCaptchaCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                cookieModel = await BachHoaXanhService.GetCaptchaAndASPSession();
-                if (cookieModel != null)
+                await DialogService.RunWithLoadingAsync(async () =>
                 {
-                    InvoiceModel.CaptchaPath = cookieModel.CaptchaPath;
-                }
+                    cookieModel = await BachHoaXanhService.GetCaptchaAndASPSession();
+                    if (cookieModel != null)
+                    {
+                        InvoiceModel.CaptchaPath = cookieModel.CaptchaPath;
+                    }
+                }, DialogService.MainWindowDialogHostId);
             });
 
             SendAPICommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                // Console.WriteLine(AddInvoiceModel.CaptchaCode);
-                // Console.WriteLine(AddInvoiceModel.MaCT);
-                // Console.WriteLine(AddInvoiceModel.MaHD);
-                //
-                // if (cookieModel == null)
-                // {
-                //     return;
-                // }
-                // var (_, _, urlTaiXML) = await BachHoaXanhService.SendAPI(cookieModel.SvID, 
-                //     cookieModel.ASPNET_SessionId, 
-                //     AddInvoiceModel.CaptchaCode, 
-                //     AddInvoiceModel.MaCT, 
-                //     AddInvoiceModel.MaHD
-                // );
-                //
-                // var xmlPath = await BachHoaXanhService.DownloadXMLFile(urlTaiXML);
-                string xmlPath = "/home/newtun/.local/share/BillInsight/TempData/temp.xml";
+                if (cookieModel == null)
+                {
+                    return;
+                }
+
+                await DialogService.RunWithLoadingAsync(async () =>
+                {
+                    var (_, _, urlTaiXML) = await BachHoaXanhService.SendAPI(cookieModel.SvID, 
+                        cookieModel.ASPNET_SessionId, 
+                        InvoiceModel.CaptchaCode, 
+                        InvoiceModel.MaCT, 
+                        InvoiceModel.MaHD
+                    );
                 
-                (NBan nban, List<HHDVu> hhdvuList, TToan ttoan) = await BachHoaXanhService.GetXAMLData(xmlPath);
-                NBan =  nban;
-                HHDVuList = new ObservableCollection<HHDVu>(hhdvuList);
-                TToan =  ttoan;
+                    var xmlPath = await BachHoaXanhService.DownloadXMLFile(urlTaiXML);
+                    // string xmlPath = "/home/newtun/.local/share/BillInsight/TempData/temp.xml";
+                
+                    (NBan nban, List<HHDVu> hhdvuList, TToan ttoan) = await BachHoaXanhService.GetXAMLData(xmlPath);
+                    NBan =  nban;
+                    HHDVuList = new ObservableCollection<HHDVu>(hhdvuList);
+                    TToan =  ttoan;
+                }, DialogService.MainWindowDialogHostId);
             });
 
             AddInvoiceDetailCommand = ReactiveCommand.Create(() =>
@@ -193,11 +197,15 @@ namespace BillInsight.ViewModels
                     values.Add(new List<object> { date, itemName, cash, bank });
                 }
                 
-                var r = await GoogleSpreadsheetService.Append(ConfigService.Config.WorkingSheet.Title, "A2", values);
-                Console.WriteLine($"Result: {r}");
-                // FolderHelpers.CleanTempFolder();
                 
+                await DialogService.RunWithLoadingAsync(async () =>
+                {
+                    var r = await GoogleSpreadsheetService.Append(ConfigService.Config.WorkingSheet.Title, "A2", values);
+                }, DialogService.MainWindowDialogHostId);
+                
+                FolderHelpers.CleanTempFolder();
                 await DialogService.ShowMessageDialogAsync(DialogService.MainWindowDialogHostId, "Success", "Cập nhật thành công.", true);
+                
             });
         }
     }

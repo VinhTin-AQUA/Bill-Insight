@@ -256,89 +256,108 @@
         </ScrollViewer>
         
         <ScrollViewer Grid.Column="1">
-            <StackPanel
-                Width="400"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="15">
+            <Grid
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Center"
+    RowDefinitions="Auto"
+    ColumnDefinitions="*"
+    Margin="40">
 
-                <!-- Thẻ chứa toàn bộ khung -->
-                <Border Background="#FFF"
-                        CornerRadius="12"
-                        BoxShadow="0 4 12 #00000030"
-                        Padding="20"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                    <StackPanel Spacing="5" HorizontalAlignment="Center">
-                        
-                        <!-- get capthca -->
-                        <Button Content="Get captcha"
-                                Classes="add-pic-button"
-                                Padding="8,4"
-                                CornerRadius="8"
-                                HorizontalContentAlignment="Center"
-                                Command="{Binding GetCaptchaCommand}"
-                        >
-                        </Button>
+    <Border Background="#FFF"
+            CornerRadius="12"
+            BoxShadow="0 4 12 #00000030"
+            Padding="20"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
 
-                        <Border Background="#F8F8F8"
-                                BorderBrush="#DDD"
-                                BorderThickness="1"
-                                CornerRadius="10"
-                                Padding="5"
-                                HorizontalAlignment="Center">
-                            <Image
-                                Source="{Binding InvoiceModel.CaptchaPath, Converter={StaticResource ImagePathToBitmapConverter}}"
-                                Width="280" Height="100"
-                                Stretch="Uniform"
-                                HorizontalAlignment="Center" />
-                        </Border>
-                        
-                        <!-- nhap captcha -->
-                        <StackPanel>
-                            <TextBlock Text="Nhập Captcha"
-                                       FontSize="16"
-                                       Foreground="#333" />
-                            <TextBox Text="{Binding InvoiceModel.CaptchaCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
-                        
-                        <!-- nhap CT va ma HD -->
-                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                            <StackPanel Grid.Column="0">
-                                <TextBlock Text="Nhập mã hóa đơn"
-                                           FontSize="16"
-                                           Foreground="#333" />
-                                <TextBox Margin="0,0,0,5" Text="{Binding InvoiceModel.MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+              RowSpacing="15"
+              HorizontalAlignment="Stretch">
 
-                            
-                            <StackPanel Grid.Column="1">
-                                <TextBlock Text="Nhập mã CT"
-                                           FontSize="16"
-                                           Foreground="#333" />
-                                <TextBox Margin="0,0,0,5" Text="{Binding InvoiceModel.MaCT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </Grid>
-                        
-                        <!-- Các nút thao tác -->
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center"
-                                    Spacing="10">
-                            
-                            <Button Classes="send-button"
-                                    Padding="8,4"
-                                    CornerRadius="8"
-                                    Width="50"
-                                    Command="{Binding SendAPICommand}"
-                            >
-                                <Svg Path="{StaticResource Send}" 
-                                     Width="24" Height="24"
-                                     Css=".fill { fill: #fcd34d; }"></Svg>
-                            </Button>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
+            <!-- Nút Get Captcha -->
+            <Button Grid.Row="0"
+                    Content="Get Captcha"
+                    Classes="add-pic-button"
+                    HorizontalContentAlignment="Center"
+                    Padding="8,4"
+                    CornerRadius="8"
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding GetCaptchaCommand}" />
+
+            <!-- Hình Captcha -->
+            <Border Grid.Row="1"
+                    Background="#F8F8F8"
+                    BorderBrush="#DDD"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="5"
+                    HorizontalAlignment="Stretch"
+                    Height="110">
+                <Image
+                    Source="{Binding InvoiceModel.CaptchaPath, Converter={StaticResource ImagePathToBitmapConverter}}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stretch="Uniform"
+                    Height="100" />
+            </Border>
+
+            <!-- Nhập Captcha -->
+            <Grid Grid.Row="2"
+                  RowDefinitions="Auto,Auto"
+                  RowSpacing="5"
+                  HorizontalAlignment="Stretch">
+                <TextBlock Grid.Row="0"
+                           Text="Nhập Captcha"
+                           FontSize="16"
+                           Foreground="#333"
+                           Margin="0,0,0,5" />
+                <TextBox Grid.Row="1"
+                         HorizontalAlignment="Stretch"
+                         Height="30"
+                         Text="{Binding InvoiceModel.CaptchaCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <!-- Nhập Mã Hóa Đơn & Mã CT -->
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="10"
+                  HorizontalAlignment="Stretch">
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Nhập mã hóa đơn"
+                               FontSize="16"
+                               Foreground="#333" />
+                    <TextBox HorizontalAlignment="Stretch"
+                             Height="30"
+                             Text="{Binding InvoiceModel.MaHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Nhập mã CT"
+                               FontSize="16"
+                               Foreground="#333" />
+                    <TextBox HorizontalAlignment="Stretch"
+                             Height="30"
+                             Text="{Binding InvoiceModel.MaCT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Nút Gửi -->
+            <Grid Grid.Row="4" >
+                <Button Classes="add-pic-button"
+                        Padding="8,4"
+                        CornerRadius="8"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding SendAPICommand}">
+                    <Svg Path="{StaticResource Send}" 
+                         Width="24" Height="24"
+                         Css=".fill { fill: #fcd34d; }"/>
+                </Button>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Grid>
+
         </ScrollViewer>
     </Grid>
 </UserControl>

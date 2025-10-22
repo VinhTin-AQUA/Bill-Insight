@@ -58,24 +58,30 @@ namespace BillInsight.ViewModels
         
         public GoogleSpreadsheetService GoogleSpreadsheetService { get; set; }
         public ConfigService ConfigService { get; set; }
+        public DialogService DialogService { get; set; }
         
         public StatisticalViewModel()
         {
             GoogleSpreadsheetService = Locator.Current.GetService<GoogleSpreadsheetService>()!;
             ConfigService = Locator.Current.GetService<ConfigService>()!;
+            DialogService = Locator.Current.GetService<DialogService>()!;
         }
 
         public async Task GetStatistics()
         {
-            TotalCashUsed = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "E2") ?? "";
-            TotalBankUsed = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "F2") ?? "";
-            MonthlyCashTotal = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "G2") ?? "";
-            MonthlyBankTotal = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "H2") ?? "";
-            RemainingCash = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "I2") ?? "";
-            RemainingBank = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "J2") ?? "";
-            TotalRemaining = await GoogleSpreadsheetService.ReadDataFromCell<string>(ConfigService.Config.WorkingSheet.Title, "K2") ?? "";
+            await DialogService.RunWithLoadingAsync(async () =>
+            {
+                var values =
+                    await GoogleSpreadsheetService.GetDataRow<string>(ConfigService.Config.WorkingSheet.Title, "E2:K2");
+                TotalCashUsed = values[0];
+                TotalBankUsed = values[1];
+                MonthlyCashTotal = values[2];
+                MonthlyBankTotal = values[3];
+                RemainingCash = values[4];
+                RemainingBank = values[5];
+                TotalRemaining = values[6];
+            }, DialogService.MainWindowDialogHostId);
         }
-        
         
         public virtual void Dispose()
         {
