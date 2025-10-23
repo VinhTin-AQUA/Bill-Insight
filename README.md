@@ -1,233 +1,86 @@
 # BillInsight
 
-## Test data
+BillInsight is a smart expense tracking tool that helps you manage your spending directly from Google Sheets.
 
--   CT: OV203555509416602
--   InvoiceCode: BF394B7E06
+---
 
-## Build Steps
+## 🚀 Features
 
--   Call API lấy prefix
--   Call API lấy captcha
--   nhập mã CT, captchae và mã truy xuất hóa đơn
--   call api
--   lấy dữ liệu
+-   🔑 **Key Management**
 
-    -   tải xml và truy xuất dữ liệu
-    -   đọc từ file pdf
+    -   Import **service_account.json** file (Google Cloud credentials).
+    -   Enter your **Google Spreadsheet ID**.
 
--   gọi api chỉnh sửa sheet
--   lưu ảnh vào cloudinary
+-   🧾 **Bill Management**
+    -   Upload and save bill images.
+    -   View total balance, spent amount, and remaining balance.
+    -   View detailed bill information.
+    -   Switch between multiple sheets.
+    -   Use prebuilt **Sheet Templates** for easy setup.
 
-## Setup
+---
 
-### Setup dự án google cloud console
+## 🧩 Technologies Used
 
-#### Create new project
+-   **Framework:** Avalonia
+-   **Database & Automation:** Google Sheets API
+-   **Authentication:** Google Cloud Service Account
 
--   Tạo Project
--   Bật API
+---
 
-    -   Vào APIs & Services → Library.
-    -   Bật Google Sheets API (và Google Drive API nếu cần).
+## ⚙️ Setup Guide
 
-#### AUth
+### 1️⃣ Create a Project in Google Cloud Console
 
--   Cách 1: UserCredential (OAuth 2.0 cho user login)
+#### Step 1: Create a New Project
 
-    -   Vào APIs & Services → Credentials → Create Credentials → OAuth Client ID.
-    -   Chọn Application type = Desktop app.
-    -   Tải file **credentials.json** về.
+-   Go to [Google Cloud Console](https://console.cloud.google.com/).
+-   Create a new project.
 
--   Cách 2:(B) GoogleCredential (Service Account – không cần user login)
+#### Step 2: Enable APIs
 
-    -   Vào APIs & Services → Credentials → Create Credentials → Service Account.
-    -   Tạo service account, đặt tên.
-    -   Download file **service_account.json**.
-    -   Lấy email của service account (dạng **xxx@project-id.iam.gserviceaccount.com**).
-    -   Chia sẻ Google Sheet cho email này với quyền Editor.
+-   Navigate to **APIs & Services → Library**.
+-   Enable **Google Sheets API** (and **Google Drive API** if needed).
 
-### Code C# để sử dụng Google Sheets API
+#### Step 3: Authentication (Service Account)
 
--   Tải thư viện
+-   Go to **APIs & Services → Credentials → Create Credentials → Service Account**.
+-   Create and name your Service Account.
+-   Download the **service_account.json** file.
+-   Copy the Service Account email (e.g., `xxx@project-id.iam.gserviceaccount.com`).
+-   Share your target Google Sheet with this email and grant **Editor** access.
 
-    ```bash
-    Install-Package Google.Apis.Sheets.v4
-    Install-Package Google.Apis.Drive.v3
-    Install-Package Google.Apis.Auth
-    ```
+#### GoogleSheet tempalte
 
-#### GoogleCredential
+-   [here](./docs/template/invoice_manager_template.xlsx)
 
--   Sử dụng với GoogleCredential
+---
 
-    ```csharp
+## 💾 User Data
 
-    using Google.Apis.Auth.OAuth2;
-    using Google.Apis.Services;
-    using Google.Apis.Sheets.v4;
-    using Google.Apis.Sheets.v4.Data;
-    using Google.Apis.Util.Store;
-    using System.IO;
-    using System.Threading;
+-   The credential JSON file (`service_account.json`) is stored **locally** on your device.
+-   All configuration files are stored **locally** to ensure your data privacy.
 
-    GoogleCredential credential;
-    using (var stream = new FileStream("/home/newtun/Desktop/TestAPI/TestAPI/secrets/billinsight-0b2c14cec552.json", FileMode.Open, FileAccess.Read))
-    {
-        credential = GoogleCredential.FromStream(stream)
-        .CreateScoped(SheetsService.Scope.Spreadsheets);
-    }
+---
 
-    var service = new SheetsService(new BaseClientService.Initializer()
-    {
-        HttpClientInitializer = credential,
-        ApplicationName = "BillInsight",
-    });
+## 🖼️ **Preview Screenshot:**
 
-    // - Đọc dữ liệu
-    const string spreadsheetId = "1D4UeZBozLOjiIlhJ-YSuok-MqIJDCYicoI807K0tj1o";
-    String range = "Sheet1!A1";
+<p align="center">
+  <img src="./docs/images/1.png" alt="BillInsight Screenshot 1" width="45%" />
+  <img src="./docs/images/2.png" alt="BillInsight Screenshot 2" width="45%" />
+</p>
+<p align="center">
+  <img src="./docs/images/3.png" alt="BillInsight Screenshot 3" width="45%" />
+  <img src="./docs/images/4.png" alt="BillInsight Screenshot 4" width="45%" />
+</p>
 
-    var request = service.Spreadsheets.Values.Get(spreadsheetId, range);
-    var response = request.Execute();
+---
 
-    var values = response.Values;
-    if (values != null && values.Count > 0)
-    {
-        foreach (var row in values)
-        Console.WriteLine(string.Join(" | ", row));
-    }
-    ```
+## 🧠 Future Improvements
 
-    -   Không có popup login.
-    -   Chỉ chạy được nếu Google Sheet được share cho service account email.
-    -   Thích hợp khi app chỉ dùng cho 1 tài khoản hệ thống cố định (ví dụ server app, automation).
+-   OCR-based bill scanning
+-   Multi-currency support
+-   Expense category insights & charts
+-   Mobile-friendly layout
 
-#### UserCredential
-
--   Sử dụng với UserCredential
-
-    ```csharp
-    using Google.Apis.Auth.OAuth2;
-    using Google.Apis.Services;
-    using Google.Apis.Sheets.v4;
-    using Google.Apis.Sheets.v4.Data;
-    using Google.Apis.Util.Store;
-    using System.IO;
-    using System.Threading;
-
-    class Program
-    {
-    static string[] Scopes = { SheetsService.Scope.Spreadsheets };
-    static string ApplicationName = "Google Sheets API C# Demo";
-
-        static void Main(string[] args)
-        {
-            UserCredential credential;
-            using (var stream = new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
-            {
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.FromStream(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-            }
-
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
-            string spreadsheetId = "YOUR_SHEET_ID";
-            string range = "Sheet1!A1:D5";
-            var request = service.Spreadsheets.Values.Get(spreadsheetId, range);
-            var response = request.Execute();
-
-            foreach (var row in response.Values)
-                System.Console.WriteLine(string.Join(" | ", row));
-        }
-
-    }
-    ```
-
--   Lần đầu chạy sẽ mở trình duyệt → user đăng nhập Google → cấp quyền.
--   Token lưu ở token.json, lần sau không cần login lại.
--   Thích hợp khi app cần cho nhiều người dùng khác nhau chạy với tài khoản riêng của họ
--   Nếu trong môi trường phát triển, mặc định ứng dụng Unverified app, thì email đăng nhạp cần nằm trong danh sách Test users của ứng dụng mới có thể sử dụng app
-
--   Cách khắc phục nhanh (cho phát triển / testing)
-    Vào Google Cloud Console → APIs & Services → OAuth consent screen.
-    Ở bước User type, bạn chọn External (nếu muốn cho account ngoài tổ chức G-Suite).
-    Trong phần Test users, thêm email abc@gmail.com của bạn (và các email tester khác nếu cần).
-    👉 Sau đó bạn có thể đăng nhập mà không bị lỗi.
-
--   Nếu muốn khắc phục lâu dài (cho triển khai chính thức) cần verify app
-
-### So sánh UserCredential vs GoogleCredential
-
--   Tiêu chí UserCredential (OAuth2) GoogleCredential (Service Account)
--   Đăng nhập Người dùng phải login Google (một lần, token được lưu lại) Không cần login, chạy tự động
--   Đối tượng sử dụng Ứng dụng client dành cho nhiều người dùng Ứng dụng server/automation, 1 tài khoản cố định
--   Quyền truy cập Dựa trên tài khoản Google user đăng nhập Dựa trên email của service account (phải share tài liệu)
--   Triển khai Dễ dùng cho end-user (mỗi người dùng login bằng account của họ) Dễ dùng cho backend/system app (không ai phải login)
--   File credentials credentials.json (OAuth client ID) **service_account.json** (private key + email service)
-
-### features
-
--   Settings
--   Themes
--   Nhập keys
-
-    -   nhập file **service_account.json**
-    -   nhập ID của spreadsheet
-    -   Key cloudinary
-    -   Key supabase
-
--   Lưu ảnh
--   Xem tổng số tiền, số tiền đã dùng, số tiền còn lại
--   xem danh sách ảnh hóa đơn, theo ngày
--   Xem chi tiết hóa đơn
--   Chuyển đổi giữa các sheet
--   Template sheet
-
-#### Các bước thêm hóa đơn
-
--   Tải file ảnh
--   Get GetPrefixAndSvID
--   GetCaptchaAndASPSession
--   nhập mã đơn, mã hóa đơn, captcha
--   SendAPI
--   Xem trước dữ liệu, được quyền chỉnh sửa, tổng tiền
--   Chọn ngày hóa đơn
--   Cập nhật spreadsheet và lưu ảnh hóa đơn tại cloudinary
--   có thể nhập dữ liệu bằng tay
--   Loại tiền mặt hoặc ngân hàng
--   triển khai cho nhiều loại hóa đơn khác
-
-#### Backend
-
--   Lưu data dưới dạng json
--   Ứng dụng được cài đặt trong app data
--   Android, Windows, Linux
--   Ảnh lưu tại clouidinary
--   Key lưu tại local
--   Attachment lưu tại supabase
-
-#### màng hình
-
--   Thống kê: theo ngày, theo tuần, theo tháng, tổng chi tiêu
--   Xem chi tiết hóa đơn, xem từng sheet
--   Xem danh sách ảnh hóa đơn
--   Nhập hóa đơn
--   Thông tin - nhập ID của spreadsheet, danh sách sheet, thao tác với sheet
--   Settings
-    -   Set theme
-    -   Clear all data
-    -   Keys
-        -   nhập file service_account.json
-        -   Key cloudinary
-        -   Key supabase
-
+---
