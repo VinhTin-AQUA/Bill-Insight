@@ -1,0 +1,121 @@
+name: .NET
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish Release - Self-contained
+        if: success() # chỉ chạy khi các bước trước thành công
+        run: |
+          dotnet publish BillInsight/BillInsight.csproj -c Release -r win-x64 -p:SelfContained=true  -o ./publish-win-x64
+          dotnet publish BillInsight/BillInsight.csproj -c Release -r linux-x64 -p:SelfContained=true  -o ./publish-linux-x64
+
+      # Dùng upload-artifact và download-artifact để chia sẻ thư mục publish giữa các jobs.
+      - name: Upload win published app
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-win-x64
+          path: ./publish-win-x64
+          retention-days: 1 # Hoặc 1-90 ngày tùy ý
+
+      - name: Upload linux published app
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-linux-x64
+          path: ./publish-linux-x64
+          retention-days: 1 # Hoặc 1-90 ngày tùy ý
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: build
+
+    steps:
+      #  tải artifact xuống và đưa vào release
+      - name: Download win published app
+        uses: actions/download-artifact@v4
+        with:
+          name: publish-win-x64
+          path: ./publish-win-x64
+
+      #  tải artifact xuống và đưa vào release
+      - name: Download linux published app
+        uses: actions/download-artifact@v4
+        with:
+          name: publish-linux-x64
+          path: ./publish-linux-x64
+
+      # tao zip # Nén toàn bộ thư mục publish
+      - name: Zip win folder
+        run: |
+          zip -r win-x64.zip ./publish-win-x64
+
+      # tao  tar # Nén toàn bộ thư mục publish
+      - name: Tar linux folder
+        run: |
+          tar -czvf linux-x64.tar.gz ./publish-linux-x64
+
+      # upload cac build len artifact
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-zipped-folder
+          path: win-x64.zip linux-x64.tar.gz
+
+      # tao github release
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Token tự động có sẵn
+        with:
+          # nếu sử dụng cách xác định tag name này thì cần chỉ định tag và push
+          # git tag v1.0.0
+          # git push origin v1.0.0
+          # tag_name: ${{ github.ref_name }}  # Lấy tên tag (ví dụ: v1.0.0)
+          # release_name: "Release ${{ github.ref_name }}"
+
+          # không cần chỉ định tag khi push
+          tag_name: 'v1.0.0' # ✅ Đặt tên tag rõ ràng
+          release_name: 'Release v1.0.0'
+          draft: false
+          prerelease: false
+
+      - name: Upload ZIP to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # URL từ bước tạo release
+          asset_path: ./win-x64.zip
+          asset_name: win-x64.zip
+          asset_content_type: application/zip
+
+      - name: Upload TAR.GZ to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./linux-x64.tar.gz
+          asset_name: linux-x64.tar.gz
+          asset_content_type: application/gzip
